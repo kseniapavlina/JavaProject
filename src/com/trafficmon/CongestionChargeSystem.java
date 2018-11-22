@@ -69,7 +69,7 @@ public class CongestionChargeSystem {
     }
 
     private BigDecimal calculateChargeForTimeInZone(List<ZoneBoundaryCrossing> crossings) {
-        //time for some maths bitches (viki's voice)
+        //time for some maths bitches (viki's voice)!
 
         BigDecimal charge = new BigDecimal(0);
 
