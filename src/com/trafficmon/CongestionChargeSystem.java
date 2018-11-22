@@ -71,12 +71,14 @@ public class CongestionChargeSystem {
     private BigDecimal calculateChargeForTimeInZone(List<ZoneBoundaryCrossing> crossings) {
         //time for some maths bitches (viki's voice)!
 
+        //Java class - default value is 0 so you don't get charge.
         BigDecimal charge = new BigDecimal(0);
 
+        //if we flip the list the last event would be the event that happened first.
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
-
+        //this for loop checks exit time and calculates the amount charged. You could leave and enter more than once.
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
-
+            // calculates the charge
             if (crossing instanceof ExitEvent) {
                 charge = charge.add(
                         new BigDecimal(minutesBetween(lastEvent.timestamp(), crossing.timestamp()))
@@ -88,7 +90,7 @@ public class CongestionChargeSystem {
 
         return charge;
     }
-
+    //checks if the vehicle has been registered before or not.
     private boolean previouslyRegistered(Vehicle vehicle) {
         for (ZoneBoundaryCrossing crossing : eventLog) {
             if (crossing.getVehicle().equals(vehicle)) {
@@ -99,10 +101,12 @@ public class CongestionChargeSystem {
     }
 
     private boolean checkOrderingOf(List<ZoneBoundaryCrossing> crossings) {
-
+        //crossing = every time recorded(list)
+        //last event = the first time recorded
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
 
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
+            // timestamp : when cars entered or exited
             if (crossing.timestamp() < lastEvent.timestamp()) {
                 return false;
             }
@@ -117,9 +121,8 @@ public class CongestionChargeSystem {
 
         return true;
     }
-
+    //Quick Maffs
     private int minutesBetween(long startTimeMs, long endTimeMs) {
         return (int) Math.ceil((endTimeMs - startTimeMs) / (1000.0 * 60.0));
     }
-
 }
