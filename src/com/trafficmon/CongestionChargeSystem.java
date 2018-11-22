@@ -7,12 +7,15 @@ public class CongestionChargeSystem {
 
     public static final BigDecimal CHARGE_RATE_POUNDS_PER_MINUTE = new BigDecimal(0.05);
 
+//  a list of a times a vehicle enters
     private final List<ZoneBoundaryCrossing> eventLog = new ArrayList<ZoneBoundaryCrossing>();
 
+//  add to the list
     public void vehicleEnteringZone(Vehicle vehicle) {
         eventLog.add(new EntryEvent(vehicle));
     }
 
+//  checks to see if vehile has entered before or not and then adds it to exit event
     public void vehicleLeavingZone(Vehicle vehicle) {
         if (!previouslyRegistered(vehicle)) {
             return;
@@ -21,32 +24,44 @@ public class CongestionChargeSystem {
     }
 
     public void calculateCharges() {
-
+//doesn't calculate shit, calls another method in the end, FML
+//      a map with within a list => give each vehicle a specific entry stamp
         Map<Vehicle, List<ZoneBoundaryCrossing>> crossingsByVehicle = new HashMap<Vehicle, List<ZoneBoundaryCrossing>>();
 
-        for (ZoneBoundaryCrossing crossing : eventLog) {
-            if (!crossingsByVehicle.containsKey(crossing.getVehicle())) {
-                crossingsByVehicle.put(crossing.getVehicle(), new ArrayList<ZoneBoundaryCrossing>());
+        for (ZoneBoundaryCrossing crossing : eventLog) {    // event log is the list we have at the top
+//           creaates an empty list
+            if (!crossingsByVehicle.containsKey(crossing.getVehicle())) { //check if the vehicle is in the hashmap
+                crossingsByVehicle.put(crossing.getVehicle(), new ArrayList<ZoneBoundaryCrossing>()); // if its not put in the map
             }
-            crossingsByVehicle.get(crossing.getVehicle()).add(crossing);
+            // FIXME: 22/11/2018 this doesnt make sense
+            crossingsByVehicle.get(crossing.getVehicle()).add(crossing);  //
         }
-
+// for each car and list of crossings in the list
         for (Map.Entry<Vehicle, List<ZoneBoundaryCrossing>> vehicleCrossings : crossingsByVehicle.entrySet()) {
+            //get the name of the car
             Vehicle vehicle = vehicleCrossings.getKey();
+            //ALERT CROSSINGS APPEAR HERE VERY IMPORTANT last entry becomes 0 for some reason????
             List<ZoneBoundaryCrossing> crossings = vehicleCrossings.getValue();
 
+            //check if crossings are in order trigger exception (in lib)
             if (!checkOrderingOf(crossings)) {
                 OperationsTeam.getInstance().triggerInvestigationInto(vehicle);
-            } else {
+            }
+            //else we calculate the charge
+            else {
 
                 BigDecimal charge = calculateChargeForTimeInZone(crossings);
 
                 try {
-
+//this is bs need to refactor
                     RegisteredCustomerAccountsService.getInstance().accountFor(vehicle).deduct(charge);
-                } catch (InsufficientCreditException ice) {
+                }
+                //catch exception for insufficient funds
+                catch (InsufficientCreditException ice) {
                     OperationsTeam.getInstance().issuePenaltyNotice(vehicle, charge);
-                } catch (AccountNotRegisteredException e) {
+                }
+                //catch unregistered account?? will it even get here
+                catch (AccountNotRegisteredException e) {
                     OperationsTeam.getInstance().issuePenaltyNotice(vehicle, charge);
                 }
             }
@@ -54,6 +69,7 @@ public class CongestionChargeSystem {
     }
 
     private BigDecimal calculateChargeForTimeInZone(List<ZoneBoundaryCrossing> crossings) {
+        //time for some maths bitches (viki's voice)
 
         BigDecimal charge = new BigDecimal(0);
 
