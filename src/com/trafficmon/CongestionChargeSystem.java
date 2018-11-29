@@ -23,6 +23,11 @@ public class CongestionChargeSystem {
         eventLog.add(new ExitEvent(vehicle));
     }
 
+    //TO CHECK EVENTLOG NEED GETTER
+    public List<ZoneBoundaryCrossing> getEventLog(){
+        return eventLog;
+    }
+
     public void calculateCharges() {
 //doesn't calculate shit, calls another method in the end, FML
 //      a map with within a list => give each vehicle a specific entry stamp
@@ -51,7 +56,6 @@ public class CongestionChargeSystem {
             else {
 
                 BigDecimal charge = calculateChargeForTimeInZone(crossings);
-
                 try {
 //this is bs need to refactor
                     RegisteredCustomerAccountsService.getInstance().accountFor(vehicle).deduct(charge);
@@ -87,9 +91,14 @@ public class CongestionChargeSystem {
 
             lastEvent = crossing;
         }
-
         return charge;
+
     }
+
+    public BigDecimal getCharge(List<ZoneBoundaryCrossing> crossings){
+        return calculateChargeForTimeInZone(crossings);
+    }
+
     //checks if the vehicle has been registered before or not.
     private boolean previouslyRegistered(Vehicle vehicle) {
         for (ZoneBoundaryCrossing crossing : eventLog) {
