@@ -4,6 +4,10 @@ public class Vehicle {
 
     private final String registration;
 
+    public String getRegistration(){
+        return registration;
+    }
+
     private Vehicle(String registration) {
         this.registration = registration;
     }
