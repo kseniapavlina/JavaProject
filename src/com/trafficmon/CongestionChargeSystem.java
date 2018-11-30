@@ -130,8 +130,18 @@ public class CongestionChargeSystem {
 
         return true;
     }
+
+    public boolean getOrdering(List<ZoneBoundaryCrossing> crossings){
+        return checkOrderingOf(crossings);
+    }
+
+
     //Quick Maffs
     private int minutesBetween(long startTimeMs, long endTimeMs) {
         return (int) Math.ceil((endTimeMs - startTimeMs) / (1000.0 * 60.0));
+    }
+
+    public int getter(long startTimeMs, long endTimeMs){
+        return this.minutesBetween(startTimeMs, endTimeMs);
     }
 }
