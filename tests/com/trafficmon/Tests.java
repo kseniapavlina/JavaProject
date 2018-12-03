@@ -12,6 +12,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Tests {
@@ -67,23 +68,15 @@ public class Tests {
     }
 
     @Test
-    public void assertLeavingTime() throws InterruptedException {
+    public void assertEnteringTime() throws InterruptedException {
         system.vehicleEnteringZone(vehicleOne);
         long timestamp = system.getEventLog().get(0).timestamp();
-        system.vehicleLeavingZone(vehicleOne); //why do we need this line???
+        system.vehicleLeavingZone(vehicleOne);
         Thread.sleep(1000);
-        system.vehicleEnteringZone(vehicleOne); //can just make vehicleTwo?
+        system.vehicleEnteringZone(vehicleOne);
         ZoneBoundaryCrossing crossing = system.getEventLog().get(2);
-        assertThat(crossing.timestamp(), greaterThan(timestamp));      // checks if the lists adds things correctly
+        assertThat(crossing.timestamp(), greaterThan(timestamp));
 
-    }
-
-    @Test
-    public void assertList() { //wtf does this one do???
-        system.vehicleEnteringZone(vehicleOne);
-        system.vehicleEnteringZone(vehicleOne);
-        System.out.println(system.getEventLog().get(0));
-        System.out.println(system.getEventLog().get(1));
     }
 
     @Test
@@ -125,27 +118,29 @@ public class Tests {
         RegisteredCustomerAccountsService.getInstance().accountFor(vehicleOne).deduct(BigDecimal.valueOf(1000000000));
     }
 
-    /*@Test
-    public void checkOnRegisteredAndUnregisteredCars()  throws InterruptedException{
+    @Test
+    public void checkOrderingIsFalse()  throws InterruptedException{
         system.vehicleEnteringZone(vehicleOne);
-        Thread.sleep(1000*60);
+        Thread.sleep(1000);
         system.vehicleEnteringZone(vehicleOne);
-        List<ZoneBoundaryCrossing> crossings = null;
+        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
         for (ZoneBoundaryCrossing crossing : system.getEventLog()){
             crossings.add(crossing);
         }
         assertEquals(system.getOrdering(crossings), false);
-    }*/
-//^^^^ no clue why this doesn't work
-
-
-    /*This test doesn't pass since the method can't run on an empty list - NEED to implement
-    @Test
-    public void emptyListCalculateChargeTimezone(){
-        List <ZoneBoundaryCrossing> emptyList = new ArrayList<ZoneBoundaryCrossing>();
-        BigDecimal zero = system.test(emptyList);
     }
-*/
+
+    @Test
+    public void checkOrderingIsTrue()  throws InterruptedException{
+        system.vehicleEnteringZone(vehicleOne);
+        Thread.sleep(1000);
+        system.vehicleLeavingZone(vehicleOne);
+        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
+        for (ZoneBoundaryCrossing crossing : system.getEventLog()){
+            crossings.add(crossing);
+        }
+        assertEquals(system.getOrdering(crossings), true);
+    }
 
     /*
     //this test will check the charge for vehicle
