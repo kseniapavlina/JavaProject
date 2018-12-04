@@ -14,6 +14,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Tests {
 
@@ -140,6 +141,20 @@ public class Tests {
             crossings.add(crossing);
         }
         assertEquals(system.getOrdering(crossings), true);
+    }
+
+    @Test
+    public void killMe() throws InterruptedException {
+        system.vehicleEnteringZone(vehicleOne);
+        system.vehicleEnteringZone(vehicleTwo);
+        Thread.sleep(1000*20);
+        system.vehicleLeavingZone(vehicleOne);
+        system.vehicleLeavingZone(vehicleTwo);
+        system.calculateCharges();
+
+        System.out.println(system.charge());
+
+
     }
 
     /*

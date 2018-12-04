@@ -6,6 +6,7 @@ import java.util.*;
 public class CongestionChargeSystem {
 
     public static final BigDecimal CHARGE_RATE_POUNDS_PER_MINUTE = new BigDecimal(0.05);
+    public Map<Vehicle, BigDecimal> theCharge = new HashMap<>();
 
 //  a list of a times a vehicle enters
     private final List<ZoneBoundaryCrossing> eventLog = new ArrayList<ZoneBoundaryCrossing>();
@@ -15,7 +16,7 @@ public class CongestionChargeSystem {
         eventLog.add(new EntryEvent(vehicle));
     }
 
-//  checks to see if vehile has entered before or not and then adds it to exit event
+//  checks to see if vehicle has entered before or not and then adds it to exit event
     public void vehicleLeavingZone(Vehicle vehicle) {
         if (!previouslyRegistered(vehicle)) {
             return;
@@ -34,7 +35,7 @@ public class CongestionChargeSystem {
         Map<Vehicle, List<ZoneBoundaryCrossing>> crossingsByVehicle = new HashMap<Vehicle, List<ZoneBoundaryCrossing>>();
 
         for (ZoneBoundaryCrossing crossing : eventLog) {    // event log is the list we have at the top
-//           creaates an empty list
+//           creates an empty list
             if (!crossingsByVehicle.containsKey(crossing.getVehicle())) { //check if the vehicle is in the hashmap
                 crossingsByVehicle.put(crossing.getVehicle(), new ArrayList<ZoneBoundaryCrossing>()); // if its not put in the map
             }
@@ -56,6 +57,7 @@ public class CongestionChargeSystem {
             else {
 
                 BigDecimal charge = calculateChargeForTimeInZone(crossings);
+                theCharge.put(vehicle, charge);
                 try {
 //this is bs need to refactor
                     RegisteredCustomerAccountsService.getInstance().accountFor(vehicle).deduct(charge);
@@ -70,6 +72,10 @@ public class CongestionChargeSystem {
                 }
             }
         }
+    }
+
+    public Map charge(){
+        return theCharge;
     }
 
     private BigDecimal calculateChargeForTimeInZone(List<ZoneBoundaryCrossing> crossings) {
