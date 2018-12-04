@@ -1,5 +1,6 @@
 package com.trafficmon;
 
+
 public class Example {
     public static void main(String[] args) throws Exception {
         CongestionChargeSystem congestionChargeSystem = new CongestionChargeSystem();
@@ -18,4 +19,6 @@ public class Example {
     private static void delaySeconds(int secs) throws InterruptedException {
         Thread.sleep(secs * 1000);
     }
+
+
 }
