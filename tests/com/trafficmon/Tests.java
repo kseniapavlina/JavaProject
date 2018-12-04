@@ -146,112 +146,29 @@ public class Tests {
         }
         assertEquals(system.getOrdering(crossings), true);
     }
-//
-//    @Test
-//    public void killMe() throws InterruptedException {
-//        system.vehicleEnteringZone(vehicleOne);
-//        Thread.sleep(1000*60);
-//        system.vehicleLeavingZone(vehicleOne);
-//        system.calculateCharges();
-//
-//        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-//        BigDecimal v = bd.round(new MathContext(1));
-//        BigDecimal answer = new BigDecimal("0.05");
-//
-//        assertEquals(v, answer);
-//    }
 
-
-//    @Test
-//    public void killMe() throws InterruptedException {
-//        system.vehicleEnteringZone(vehicleOne);
-//        Thread.sleep(1000*60);
-//        system.vehicleLeavingZone(vehicleOne);
-//        system.calculateCharges();
-//
-//        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-//        BigDecimal v = bd.round(new MathContext(1));
-//        BigDecimal answer = new BigDecimal("4");
-//
-//        assertEquals(v, answer);
-//    }
-@Test
-public void killMe(){
-    system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
-    system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
-    system.calculateCharges();
-    BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-    BigDecimal v = bd.round(new MathContext(1));
-    BigDecimal answer = new BigDecimal("6");
-
-    assertEquals(v, answer);
-}
-
-//    @Test
-//    public void checks(){
-//        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
-//    }
-
-    /*
-    //this test will check the charge for vehicle
-    //entering before 2pm and staying for < 4 hrs
     @Test
-    public void checksIfCalculationIsCorrectBeforeTwo() throws InterruptedException{
-        //we will have to record time when entering and leaving the zone
-        //important - time of day
-        //for this test entry time should be less than 2 pm
-        system.vehicleEnteringZone(vehicle);
-        system.vehicleEnteringZone(vehicleThree);
-        Thread.sleep(1000*60*60); //sleep for 1 hour
-        system.vehicleLeavingZone(vehicle);
-        Thread.sleep(1000*60*60*8);
-        //possibly create a list for the cars here? or need to get crossings for a vehicle
-        assertThat(system.getCharge(system.getEventLog()), is(6));
-        //how to assert 12???
-        //how exactly do we get charge for a single vehicle??
-        //i can split into two tests?
-        //i kinda think it's better to test both within one test bc also checks correctness of methods
+    public void calculatesChargeForEntryBeforeTwoLessThanFourHours(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(1));
+        BigDecimal answer = new BigDecimal("6");
+        assertEquals(v, answer);
     }
 
-    //alternatively use this test
-    //checks charge for 5 hrs stay
     @Test
-    public void checksIfCalculationIsCorrectFourHrs() throws InterruptedException{
-        //for this test entry time is any time
-        system.vehicleEnteringZone(vehicle);
-        Thread.sleep(1000*60*60*5); //sleep for 5 hour
-        system.vehicleLeavingZone(vehicle);
-        assertThat(system.getCharge(system.getEventLog()), is(12));
+    public void calculatesChargeForLongerThanFourHours(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleThree, LocalTime.of(14, 30,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(18,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleThree, LocalTime.of(22,0,0)));
+        system.calculateCharges();
+        BigDecimal bd1 = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v1 = bd1.round(new MathContext(2));
+        BigDecimal bd2 = (BigDecimal) system.charge2().get(vehicleThree);
+        BigDecimal v2 = bd2.round(new MathContext(2));
+        assertEquals(v1, v2);
     }
-
-    //checks when leaving and returning within 4 hrs
-    @Test
-    public void checksLeavingAndEnteringWithinFourHours() throws InterruptedException{
-        system.vehicleEnteringZone(vehicle);
-        Thread.sleep(1000*60);
-        system.vehicleLeavingZone(vehicle);
-        Thread.sleep(1000*60);
-        system.vehicleEnteringZone(vehicle);
-        Thread.sleep(1000*60);
-        system.vehicleLeavingZone(vehicle);
-        assertThat(system.getCharge(system.getEventLog()), is(4)); //or 6
-    }
-
-    //checks when entering after 2pm
-    //same as first, need to pass time
-    @Test
-    public void checksIfCalculationIsCorrectAfterTwo() throws InterruptedException{
-        //we will have to record time when entering and leaving the zone
-        //important - time of day
-        //for this test entry time should be more than 2 pm
-        system.vehicleEnteringZone(vehicle);
-        system.vehicleEnteringZone(vehicleThree);
-        Thread.sleep(1000*60*60); //sleep for 1 hour
-        system.vehicleLeavingZone(vehicle);
-        Thread.sleep(1000*60*60*8);
-        //possibly create a list for the cars here? or need to get crossings for a vehicle
-        assertThat(system.getCharge(system.getEventLog()), is(4));
-        //assertThat 12
-    }
-    */
 }
