@@ -1,5 +1,6 @@
 package com.trafficmon;
 
+//import static jdk.nashorn.internal.objects.NativeMath.round;
 import static junit.framework.TestCase.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -12,8 +13,11 @@ import org.junit.rules.ExpectedException;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.math.*;
 import java.util.Map;
 
 public class Tests {
@@ -71,7 +75,7 @@ public class Tests {
     @Test
     public void assertEnteringTime() throws InterruptedException {
         system.vehicleEnteringZone(vehicleOne);
-        long timestamp = system.getEventLog().get(0).timestamp();
+        LocalTime timestamp = system.getEventLog().get(0).timestamp();
         system.vehicleLeavingZone(vehicleOne);
         Thread.sleep(1000);
         system.vehicleEnteringZone(vehicleOne);
@@ -106,8 +110,8 @@ public class Tests {
     }
 
     @Test public void checkTheMaths(){
-        long startTimeMs= 15;
-        long endTimeMs= 20 ;
+        LocalTime startTimeMs= LocalTime.of(9,10,50);
+        LocalTime endTimeMs= LocalTime.of(9,11,50);
         CongestionChargeSystem g = new CongestionChargeSystem();
         assertEquals(1, g.getter(startTimeMs, endTimeMs));
     }
@@ -142,20 +146,51 @@ public class Tests {
         }
         assertEquals(system.getOrdering(crossings), true);
     }
+//
+//    @Test
+//    public void killMe() throws InterruptedException {
+//        system.vehicleEnteringZone(vehicleOne);
+//        Thread.sleep(1000*60);
+//        system.vehicleLeavingZone(vehicleOne);
+//        system.calculateCharges();
+//
+//        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+//        BigDecimal v = bd.round(new MathContext(1));
+//        BigDecimal answer = new BigDecimal("0.05");
+//
+//        assertEquals(v, answer);
+//    }
 
-    @Test
-    public void killMe() throws InterruptedException {
-        system.vehicleEnteringZone(vehicleOne);
-        system.vehicleEnteringZone(vehicleTwo);
-        Thread.sleep(1000*20);
-        system.vehicleLeavingZone(vehicleOne);
-        system.vehicleLeavingZone(vehicleTwo);
-        system.calculateCharges();
 
-        System.out.println(system.charge());
+//    @Test
+//    public void killMe() throws InterruptedException {
+//        system.vehicleEnteringZone(vehicleOne);
+//        Thread.sleep(1000*60);
+//        system.vehicleLeavingZone(vehicleOne);
+//        system.calculateCharges();
+//
+//        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+//        BigDecimal v = bd.round(new MathContext(1));
+//        BigDecimal answer = new BigDecimal("4");
+//
+//        assertEquals(v, answer);
+//    }
+@Test
+public void killMe(){
+    system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
+    system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
+    system.calculateCharges();
+    BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+    BigDecimal v = bd.round(new MathContext(1));
+    BigDecimal answer = new BigDecimal("6");
 
+    assertEquals(v, answer);
+}
 
-    }
+//    @Test
+//    public void checks(){
+//        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
+//    }
 
     /*
     //this test will check the charge for vehicle

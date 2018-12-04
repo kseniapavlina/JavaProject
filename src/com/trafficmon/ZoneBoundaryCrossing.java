@@ -1,21 +1,28 @@
 package com.trafficmon;
 
+import java.time.LocalTime;
+
 // why is this abstract? cant you just make an instance of this?
 public abstract class ZoneBoundaryCrossing {
 
     private final Vehicle vehicle;
-    private final long time;
+    private final LocalTime time;
 
     public ZoneBoundaryCrossing(Vehicle vehicle) {
         this.vehicle = vehicle;
-        this.time = System.currentTimeMillis();
+        this.time = LocalTime.now();
+    }
+
+    public ZoneBoundaryCrossing(Vehicle vehicle, LocalTime time) {
+        this.vehicle = vehicle;
+        this.time = time;
     }
 
     public Vehicle getVehicle() {
         return vehicle;
     }
 
-    public long timestamp() {
+    public LocalTime timestamp() {
         return time;
     }
 }
