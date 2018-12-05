@@ -182,4 +182,30 @@ public class Tests {
         BigDecimal answer = new BigDecimal("4");
         assertEquals(v, answer);
     }
+
+    @Test
+    public void checksTimer(){
+        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
+        crossings.add(0, new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
+        crossings.add(1, new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
+        crossings.add(2, new EntryEvent(vehicleOne, LocalTime.of(12,0,0)));
+        crossings.add(3, new ExitEvent(vehicleOne, LocalTime.of(14,30,0)));
+        assertEquals(system.timer(crossings), 4.5);
+    }
+
+    @Test
+    public void calculatesChargesWithLeaving(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(12,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(13,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(19,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(19,30,0)));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(2));
+        BigDecimal answer = new BigDecimal("10");
+        assertEquals(v, answer);
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.trafficmon;
 
+import javafx.util.converter.LocalDateStringConverter;
+
 import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -84,58 +86,41 @@ public class CongestionChargeSystem {
         return THE_CHARGE;
     }
 
-//    private BigDecimal calculateChargeForTimeInZone(List<ZoneBoundaryCrossing> crossings) {
-//        //time for some maths bitches (viki's voice)!
-//
-//        //Java class - default value is 0 so you don't get charge.
-//        BigDecimal charge = new BigDecimal(0);
-//
-//        //if we flip the list the last event would be the event that happened first.
-//        ZoneBoundaryCrossing lastEvent = crossings.get(0);
-//        //this for loop checks exit time and calculates the amount charged. You could leave and enter more than once.
-//        for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
-//            // calculates the charge
-//            if (crossing instanceof ExitEvent) {
-//                charge = charge.add(
-//                        new BigDecimal(minsBetween(lastEvent.timestamp(), crossing.timestamp()))
-//                                .multiply(CHARGE_RATE_POUNDS_PER_MINUTE));
-//            }
-//
-//            lastEvent = crossing;
-//        }
-//        return charge;
-//
-//    }
-
     private BigDecimal calculateChargeForTimeInZone(List<ZoneBoundaryCrossing> crossings){
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
-        if (lastEvent.timestamp().compareTo(TIME_BOUNDARY) <= 0 ) {
-            for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
-                // calculates the charge
-                if (crossing instanceof ExitEvent) {
-                    if(minsBetween(lastEvent.timestamp(), crossing.timestamp())/60 <= 4){
-                        return UPPER_FEE;
+        ArrayList<LocalTime> timesToCharge = new ArrayList<>();
+        LocalTime criticalTime = crossings.get(1).timestamp();
+        timesToCharge.add(lastEvent.timestamp());
+        BigDecimal charge = new BigDecimal(0);
+        if (timer(crossings) < 4){
+            for (ZoneBoundaryCrossing crossing : crossings.subList(2, crossings.size())){
+                if (crossing instanceof EntryEvent){
+                    if (minsBetween(criticalTime, crossing.timestamp()) / 60.0 > 4){
+                        int i = crossings.indexOf(crossing);
+                        criticalTime = crossings.get(i).timestamp();
+                        timesToCharge.add(crossing.timestamp());
                     }
-                    return LONG_FEE;
                 }
-
-                lastEvent = crossing;
+            }
+            for (LocalTime time : timesToCharge){
+                if (time.compareTo(TIME_BOUNDARY) <= 0) charge = charge.add(UPPER_FEE);
+                else charge = charge.add(LOWER_FEE);
             }
         }
-        else {
-            for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
-                // calculates the charge
-                if (crossing instanceof ExitEvent) {
-                    if(minsBetween(lastEvent.timestamp(), crossing.timestamp())/60 <= 4){
-                        return LOWER_FEE;
-                    }
-                    return LONG_FEE;
-                }
-                lastEvent = crossing;
-            }
-        }
-        return new BigDecimal(0);
+        else charge = charge.add(LONG_FEE);
+        return charge;
     }
+
+
+    //we assume this is called with events in right order
+    public double timer(List<ZoneBoundaryCrossing> crossings){
+        double timer = 0;
+        for (int i = 0; i < crossings.size()-1; i+=2){
+            timer += minsBetween(crossings.get(i).timestamp(), crossings.get(i+1).timestamp()) / 60.0;
+        }
+        return timer;
+    }
+
 
     public BigDecimal getCharge(List<ZoneBoundaryCrossing> crossings){
         return calculateChargeForTimeInZone(crossings);
@@ -152,8 +137,6 @@ public class CongestionChargeSystem {
     }
 
     private boolean checkOrderingOf(List<ZoneBoundaryCrossing> crossings) {
-        //crossing = every time recorded(list)
-        //last event = the first time recorded
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
 
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
@@ -180,9 +163,7 @@ public class CongestionChargeSystem {
 
     //Quick Maffs
     private long minsBetween(LocalTime startTimeMs, LocalTime endTimeMs) {
-//        return (int) Math.ceil((endTimeMs - startTimeMs) / (1000.0 * 60.0));
         return (int) Math.ceil(ChronoUnit.MINUTES.between(startTimeMs, endTimeMs));
-//        return ChronoUnit.MINUTES.between(startTimeMs, endTimeMs);
     }
 
     public long getter(LocalTime startTimeMs, LocalTime endTimeMs){
