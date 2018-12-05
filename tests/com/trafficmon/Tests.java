@@ -230,4 +230,20 @@ public class Tests {
         crossings.add(3, new EntryEvent(vehicleOne, LocalTime.of(16,0,0)));
         assertFalse((system.getOrdering(crossings)));
     }
+
+    @Test
+    public void checkMultipleEntryEqualTo14(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(16,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(17,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(22,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(22,30,0)));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(2));
+        BigDecimal answer = new BigDecimal("14");
+        assertEquals(v, answer);
+    }
+
 }
