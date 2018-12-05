@@ -14,6 +14,7 @@ public class CongestionChargeSystem {
     private static final BigDecimal LOWER_FEE = new BigDecimal(4);
     private static final BigDecimal UPPER_FEE = new BigDecimal(6);
     private static final BigDecimal LONG_FEE = new BigDecimal(12);
+    private static final int HOUR_BETWEEN = 4;
 
     private final List<ZoneBoundaryCrossing> eventLog = new ArrayList<>();
 
