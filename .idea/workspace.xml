@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10991e43-75e7-4947-a348-7363d0a40ec0" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaSS/com/trafficmon/CongestionChargeSystem.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/test/JavaSS/com/trafficmon/Tests.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/out/test/JavaSS/com/trafficmon/Tests.class" afterPath="$PROJECT_DIR$/out/test/JavaSS/com/trafficmon/Tests.class" />
       <change beforePath="$PROJECT_DIR$/tests/com/trafficmon/Tests.java" afterPath="$PROJECT_DIR$/tests/com/trafficmon/Tests.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -32,8 +29,8 @@
       <file leaf-file-name="Tests.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/com/trafficmon/Tests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="241" column="34" lean-forward="true" selection-start-line="241" selection-start-column="34" selection-end-line="241" selection-end-column="34" />
+            <state relative-caret-position="415">
+              <caret line="284" column="52" lean-forward="true" selection-start-line="284" selection-start-column="52" selection-end-line="284" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -137,7 +134,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.Tests.checkMultipleEntryMoreThatFourHours">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -159,7 +156,7 @@
       <module name="" />
       <envs />
     </configuration>
-    <configuration name="Tests.checkMultipleEntryEqualTo18" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Tests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="com.trafficmon.*" />
@@ -171,7 +168,107 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="com.trafficmon" />
       <option name="MAIN_CLASS_NAME" value="com.trafficmon.Tests" />
-      <option name="METHOD_NAME" value="checkMultipleEntryEqualTo18" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="Tests.checkMultipleEntryLessThatFourHours" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.trafficmon.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="JavaSS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.trafficmon" />
+      <option name="MAIN_CLASS_NAME" value="com.trafficmon.Tests" />
+      <option name="METHOD_NAME" value="checkMultipleEntryLessThatFourHours" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="Tests.checkMultipleEntryLessThatFourHoursAfterTwo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.trafficmon.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="JavaSS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.trafficmon" />
+      <option name="MAIN_CLASS_NAME" value="com.trafficmon.Tests" />
+      <option name="METHOD_NAME" value="checkMultipleEntryLessThatFourHoursAfterTwo" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="Tests.checkMultipleEntryLessThatFourHoursBeforeTwo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.trafficmon.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="JavaSS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.trafficmon" />
+      <option name="MAIN_CLASS_NAME" value="com.trafficmon.Tests" />
+      <option name="METHOD_NAME" value="checkMultipleEntryLessThatFourHoursBeforeTwo" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="Tests.checkMultipleEntryMoreThatFourHours" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.trafficmon.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="JavaSS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.trafficmon" />
+      <option name="MAIN_CLASS_NAME" value="com.trafficmon.Tests" />
+      <option name="METHOD_NAME" value="checkMultipleEntryMoreThatFourHours" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -244,9 +341,20 @@
       <option name="PROGRAM_PARAMETERS" />
       <predefined_log_file id="idea.log" enabled="true" />
     </configuration>
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="JUnit.Tests" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.Tests.checkMultipleEntryLessThatFourHours" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.Tests.checkMultipleEntryLessThatFourHoursBeforeTwo" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.Tests.checkMultipleEntryLessThatFourHoursAfterTwo" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.Tests.checkMultipleEntryMoreThatFourHours" />
+    </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.Tests.checkMultipleEntryEqualTo18" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.Tests.checkMultipleEntryMoreThatFourHours" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.Tests.checkMultipleEntryLessThatFourHoursAfterTwo" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.Tests.checkMultipleEntryLessThatFourHoursBeforeTwo" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.Tests.checkMultipleEntryLessThatFourHours" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.Tests" />
       </list>
     </recent_temporary>
   </component>
@@ -263,20 +371,46 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1544030118782</updated>
-      <workItem from="1544030120240" duration="252000" />
+      <workItem from="1544030120240" duration="701000" />
     </task>
+    <task id="LOCAL-00001" summary="new test">
+      <created>1544030385273</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1544030385273</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
+    <history-entry file="Tests - 2018.12.05 at 17h 23m 46s.xml">
+      <configuration name="Tests" configurationId="JUnit" />
+    </history-entry>
     <history-entry file="Tests_checkMultipleEntryEqualTo18 - 2018.12.05 at 17h 16m 52s.xml">
       <configuration name="Tests.checkMultipleEntryEqualTo18" configurationId="JUnit" />
     </history-entry>
     <history-entry file="Tests_checkMultipleEntryEqualTo18 - 2018.12.05 at 17h 19m 14s.xml">
       <configuration name="Tests.checkMultipleEntryEqualTo18" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="Tests_checkMultipleEntryLessThatFourHours - 2018.12.05 at 17h 24m 49s.xml">
+      <configuration name="Tests.checkMultipleEntryLessThatFourHours" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Tests_checkMultipleEntryLessThatFourHoursAfterTwo - 2018.12.05 at 17h 25m 42s.xml">
+      <configuration name="Tests.checkMultipleEntryLessThatFourHoursAfterTwo" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Tests_checkMultipleEntryLessThatFourHoursAfterTwo - 2018.12.05 at 17h 25m 45s.xml">
+      <configuration name="Tests.checkMultipleEntryLessThatFourHoursAfterTwo" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Tests_checkMultipleEntryLessThatFourHoursBeforeTwo - 2018.12.05 at 17h 25m 37s.xml">
+      <configuration name="Tests.checkMultipleEntryLessThatFourHoursBeforeTwo" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Tests_checkMultipleEntryMoreThatFourHours - 2018.12.05 at 17h 26m 44s.xml">
+      <configuration name="Tests.checkMultipleEntryMoreThatFourHours" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="252000" />
+    <option name="totallyTimeSpent" value="701000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -317,6 +451,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="new test" />
+    <option name="LAST_COMMIT_MESSAGE" value="new test" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <option name="time" value="1" />
@@ -334,8 +472,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/com/trafficmon/Tests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="241" column="34" lean-forward="true" selection-start-line="241" selection-start-column="34" selection-end-line="241" selection-end-column="34" />
+        <state relative-caret-position="415">
+          <caret line="284" column="52" lean-forward="true" selection-start-line="284" selection-start-column="52" selection-end-line="284" selection-end-column="52" />
           <folding />
         </state>
       </provider>

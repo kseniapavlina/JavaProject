@@ -246,4 +246,45 @@ public class Tests {
         assertEquals(v, answer);
     }
 
+    @Test
+    public void checkMultipleEntryLessThatFourHoursBeforeTwo(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(12,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(13,0,0)));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(2));
+        BigDecimal answer = new BigDecimal("6");
+        assertEquals(v, answer);
+    }
+
+    @Test
+    public void checkMultipleEntryLessThatFourHoursAfterTwo(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(15,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(16,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(18,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(19,30,0)));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(2));
+        BigDecimal answer = new BigDecimal("4");
+        assertEquals(v, answer);
+    }
+
+    @Test
+    public void checkMultipleEntryMoreThatFourHours(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(15,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(16,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(18,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(19,30,0)));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(2));
+        BigDecimal answer = new BigDecimal("12");
+        assertEquals(v, answer);
+    }
+
 }
