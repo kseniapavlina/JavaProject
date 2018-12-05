@@ -1,7 +1,5 @@
 package com.trafficmon;
 
-import javafx.util.converter.LocalDateStringConverter;
-
 import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -77,7 +75,7 @@ public class CongestionChargeSystem {
         if (timer(crossings) < 4){
             for (ZoneBoundaryCrossing crossing : crossings.subList(2, crossings.size())){
                 if (crossing instanceof EntryEvent){
-                    if (minsBetween(criticalTime, crossing.timestamp()) / 60.0 > 4){
+                    if (hoursBetween(criticalTime, crossing.timestamp()) > 4){
                         int i = crossings.indexOf(crossing);
                         criticalTime = crossings.get(i).timestamp();
                         timesToCharge.add(crossing.timestamp());
@@ -97,7 +95,7 @@ public class CongestionChargeSystem {
     public double timer(List<ZoneBoundaryCrossing> crossings){
         double timer = 0;
         for (int i = 0; i < crossings.size()-1; i+=2){
-            timer += minsBetween(crossings.get(i).timestamp(), crossings.get(i+1).timestamp()) / 60.0;
+            timer += hoursBetween(crossings.get(i).timestamp(), crossings.get(i+1).timestamp());
         }
         return timer;
     }
@@ -135,11 +133,11 @@ public class CongestionChargeSystem {
 
 
     //Quick Maffs
-    private long minsBetween(LocalTime startTimeMs, LocalTime endTimeMs) {
-        return (int) Math.ceil(ChronoUnit.MINUTES.between(startTimeMs, endTimeMs));
+    private long hoursBetween(LocalTime startTimeMs, LocalTime endTimeMs) {
+        return (int) Math.ceil(ChronoUnit.HOURS.between(startTimeMs, endTimeMs));
     }
 
     public long getter(LocalTime startTimeMs, LocalTime endTimeMs){
-        return minsBetween(startTimeMs, endTimeMs);
+        return hoursBetween(startTimeMs, endTimeMs);
     }
 }
