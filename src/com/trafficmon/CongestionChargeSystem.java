@@ -150,6 +150,12 @@ public class CongestionChargeSystem {
             if (crossing instanceof ExitEvent && lastEvent instanceof ExitEvent) {
                 return false;
             }
+            if (lastEvent instanceof EntryEvent){
+                return false;
+            }
+            if (crossing instanceof ExitEvent){
+                return false;
+            }
             lastEvent = crossing;
         }
 

@@ -5,7 +5,9 @@ import static junit.framework.TestCase.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.number.OrderingComparison.greaterThan;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Rule;
@@ -208,4 +210,24 @@ public class Tests {
         assertEquals(v, answer);
     }
 
+    @Test
+    public void checkOrderingLastIsEntry(){
+        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
+        crossings.add(0, new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
+        crossings.add(1, new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
+        crossings.add(2, new EntryEvent(vehicleOne, LocalTime.of(12,0,0)));
+        crossings.add(3, new ExitEvent(vehicleOne, LocalTime.of(14,30,0)));
+        crossings.add(4, new EntryEvent(vehicleOne, LocalTime.of(16,0,0)));
+        assertFalse((system.getOrdering(crossings)));
+    }
+
+    @Test
+    public void checkOrderingFirstIsExit(){
+        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
+        crossings.add(0, new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
+        crossings.add(1, new EntryEvent(vehicleOne, LocalTime.of(12,0,0)));
+        crossings.add(2, new ExitEvent(vehicleOne, LocalTime.of(14,30,0)));
+        crossings.add(3, new EntryEvent(vehicleOne, LocalTime.of(16,0,0)));
+        assertFalse((system.getOrdering(crossings)));
+    }
 }

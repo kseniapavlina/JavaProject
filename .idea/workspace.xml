@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="64544282-adda-43d7-897b-46b8f9615b83" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/joda_time_2_10_1.xml" beforeDir="false" />
+    <list default="true" id="bcb060d2-afe6-43e3-8b5d-a5bd48f1ea0f" name="Default Changelist" comment="tests for">
       <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/trafficmon_externals.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaSS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaSS.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/JavaSS/com/trafficmon/CongestionChargeSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaSS/com/trafficmon/CongestionChargeSystem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/JavaSS/com/trafficmon/Tests.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/JavaSS/com/trafficmon/Tests.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/com/trafficmon/Tests.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/com/trafficmon/Tests.java" afterDir="false" />
     </list>
@@ -19,77 +18,53 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FUSProjectUsageTrigger">
-    <session id="-966058670">
+    <session id="1470697285">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.0" value="1" />
           <entry key="project.opened" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="iml" value="1" />
-          <entry key="java" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="3" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="java" value="588" />
+          <entry key="JAVA" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="588" />
+          <entry key="JAVA" value="145" />
+          <entry key="PLAIN_TEXT" value="10" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="162" column="22" selection-start-line="162" selection-start-column="22" selection-end-line="162" selection-end-column="22" />
+            <state relative-caret-position="302">
+              <caret line="153" column="29" selection-start-line="153" selection-start-column="29" selection-end-line="153" selection-end-column="29" />
+              <folding>
+                <element signature="e#6569#6570#0" expanded="true" />
+                <element signature="e#6618#6619#0" expanded="true" />
+                <element signature="e#6872#6873#0" expanded="true" />
+                <element signature="e#6930#6931#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/com/trafficmon/Tests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
-              <caret line="206" column="46" selection-start-line="206" selection-start-column="46" selection-end-line="206" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/JavaSS.iml">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/trafficmon/ZoneBoundaryCrossing.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+            <state relative-caret-position="101">
+              <caret line="215" column="1" selection-start-line="215" selection-start-column="1" selection-end-line="215" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>compa</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -97,43 +72,20 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java" />
         <option value="$PROJECT_DIR$/tests/com/trafficmon/Tests.java" />
+        <option value="$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java" />
       </list>
     </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsFlowSettings">
-    <service-enabled>true</service-enabled>
-    <exe-path />
-    <annotation-enable>false</annotation-enable>
-    <other-services-enabled>true</other-services-enabled>
-    <auto-save>true</auto-save>
-  </component>
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="width" value="1440" />
     <option name="height" value="900" />
-  </component>
-  <component name="ProjectInspectionProfilesVisibleTreeState">
-    <entry key="Project Default">
-      <profile-state>
-        <expanded-state>
-          <State>
-            <id />
-          </State>
-        </expanded-state>
-        <selected-state>
-          <State>
-            <id>Android</id>
-          </State>
-        </selected-state>
-      </profile-state>
-    </entry>
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -141,6 +93,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -174,16 +127,14 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544013509062" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544022633720" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.spelling" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -197,8 +148,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.Tests.calculatesChargesWithLeaving">
-    <configuration name="Tests.calculatesChargeForEntryAfterTwoLessThanFourHours" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.Tests.checkOrderingFirstIsExit">
+    <configuration name="Tests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaSS" />
       <extension name="coverage">
         <pattern>
@@ -208,13 +159,27 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.trafficmon" />
       <option name="MAIN_CLASS_NAME" value="com.trafficmon.Tests" />
-      <option name="METHOD_NAME" value="calculatesChargeForEntryAfterTwoLessThanFourHours" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Tests.checkOrderingFirstIsExit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JavaSS" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.trafficmon.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.trafficmon" />
+      <option name="MAIN_CLASS_NAME" value="com.trafficmon.Tests" />
+      <option name="METHOD_NAME" value="checkOrderingFirstIsExit" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tests.calculatesChargesWithLeaving" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Tests.checkOrderingLastIsEntry" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JavaSS" />
       <extension name="coverage">
         <pattern>
@@ -224,38 +189,22 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.trafficmon" />
       <option name="MAIN_CLASS_NAME" value="com.trafficmon.Tests" />
-      <option name="METHOD_NAME" value="calculatesChargesWithLeaving" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Tests.checksTimer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JavaSS" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.trafficmon.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.trafficmon" />
-      <option name="MAIN_CLASS_NAME" value="com.trafficmon.Tests" />
-      <option name="METHOD_NAME" value="checksTimer" />
+      <option name="METHOD_NAME" value="checkOrderingLastIsEntry" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.Tests.checksTimer" />
-      <item itemvalue="JUnit.Tests.calculatesChargeForEntryAfterTwoLessThanFourHours" />
-      <item itemvalue="JUnit.Tests.calculatesChargesWithLeaving" />
+      <item itemvalue="JUnit.Tests" />
+      <item itemvalue="JUnit.Tests.checkOrderingLastIsEntry" />
+      <item itemvalue="JUnit.Tests.checkOrderingFirstIsExit" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.Tests.calculatesChargesWithLeaving" />
-        <item itemvalue="JUnit.Tests.checksTimer" />
-        <item itemvalue="JUnit.Tests.calculatesChargeForEntryAfterTwoLessThanFourHours" />
+        <item itemvalue="JUnit.Tests.checkOrderingFirstIsExit" />
+        <item itemvalue="JUnit.Tests.checkOrderingLastIsEntry" />
+        <item itemvalue="JUnit.Tests" />
       </list>
     </recent_temporary>
   </component>
@@ -264,82 +213,82 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="64544282-adda-43d7-897b-46b8f9615b83" name="Default Changelist" comment="" />
-      <created>1544011300232</created>
+      <changelist id="bcb060d2-afe6-43e3-8b5d-a5bd48f1ea0f" name="Default Changelist" comment="" />
+      <created>1544021057946</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1544011300232</updated>
-      <workItem from="1544011302041" duration="2047000" />
+      <updated>1544021057946</updated>
+      <workItem from="1544021059480" duration="1036000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Tests_checksTimer - 2018.12.05 at 12h 09m 41s.xml">
-      <configuration name="Tests.checksTimer" configurationId="JUnit" />
+    <history-entry file="Tests - 2018.12.05 at 14h 44m 36s.xml">
+      <configuration name="Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests_checksTimer - 2018.12.05 at 12h 09m 50s.xml">
-      <configuration name="Tests.checksTimer" configurationId="JUnit" />
+    <history-entry file="Tests_checkOrderingLastIsEntry - 2018.12.05 at 14h 51m 55s.xml">
+      <configuration name="Tests.checkOrderingLastIsEntry" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests_checksTimer - 2018.12.05 at 12h 10m 38s.xml">
-      <configuration name="Tests.checksTimer" configurationId="JUnit" />
+    <history-entry file="Tests_checkOrderingLastIsEntry - 2018.12.05 at 14h 52m 40s.xml">
+      <configuration name="Tests.checkOrderingLastIsEntry" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests_checksTimer - 2018.12.05 at 12h 10m 50s.xml">
-      <configuration name="Tests.checksTimer" configurationId="JUnit" />
+    <history-entry file="Tests_checkOrderingLastIsEntry - 2018.12.05 at 14h 53m 16s.xml">
+      <configuration name="Tests.checkOrderingLastIsEntry" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests_checksTimer - 2018.12.05 at 12h 11m 04s.xml">
-      <configuration name="Tests.checksTimer" configurationId="JUnit" />
+    <history-entry file="Tests_checkOrderingLastIsEntry - 2018.12.05 at 14h 54m 10s.xml">
+      <configuration name="Tests.checkOrderingLastIsEntry" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests_calculatesChargeForEntryAfterTwoLessThanFourHours - 2018.12.05 at 12h 22m 15s.xml">
-      <configuration name="Tests.calculatesChargeForEntryAfterTwoLessThanFourHours" configurationId="JUnit" />
+    <history-entry file="Tests_checkOrderingLastIsEntry - 2018.12.05 at 14h 54m 45s.xml">
+      <configuration name="Tests.checkOrderingLastIsEntry" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests_calculatesChargeForEntryAfterTwoLessThanFourHours - 2018.12.05 at 12h 31m 48s.xml">
-      <configuration name="Tests.calculatesChargeForEntryAfterTwoLessThanFourHours" configurationId="JUnit" />
+    <history-entry file="Tests_checkOrderingLastIsEntry - 2018.12.05 at 14h 55m 01s.xml">
+      <configuration name="Tests.checkOrderingLastIsEntry" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests_calculatesChargeForEntryAfterTwoLessThanFourHours - 2018.12.05 at 12h 32m 12s.xml">
-      <configuration name="Tests.calculatesChargeForEntryAfterTwoLessThanFourHours" configurationId="JUnit" />
+    <history-entry file="Tests_checkOrderingLastIsEntry - 2018.12.05 at 14h 56m 51s.xml">
+      <configuration name="Tests.checkOrderingLastIsEntry" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests_calculatesChargeForEntryAfterTwoLessThanFourHours - 2018.12.05 at 12h 34m 23s.xml">
-      <configuration name="Tests.calculatesChargeForEntryAfterTwoLessThanFourHours" configurationId="JUnit" />
+    <history-entry file="Tests_checkOrderingFirstIsExit - 2018.12.05 at 14h 56m 54s.xml">
+      <configuration name="Tests.checkOrderingFirstIsExit" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests_checksTimer - 2018.12.05 at 12h 34m 31s.xml">
-      <configuration name="Tests.checksTimer" configurationId="JUnit" />
+    <history-entry file="Tests - 2018.12.05 at 14h 59m 10s.xml">
+      <configuration name="Tests" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2047000" />
+    <option name="totallyTimeSpent" value="1036000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="877" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Designer" order="0" />
-      <window_info id="UI Designer" order="1" />
-      <window_info id="Capture Tool" order="2" />
-      <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info id="Image Layers" order="4" />
-      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.24964234" />
-      <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" order="0" />
-      <window_info anchor="bottom" id="Terminal" order="1" />
-      <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" order="3" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Message" order="4" />
-      <window_info anchor="bottom" id="Find" order="5" />
-      <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.32891566" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.32891566" />
-      <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="11" />
-      <window_info anchor="right" id="Capture Analysis" order="0" />
-      <window_info anchor="right" id="Theme Preview" order="1" />
-      <window_info anchor="right" id="Database" order="2" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info anchor="right" id="Maven Projects" order="4" />
-      <window_info anchor="right" id="Palette" order="5" />
-      <window_info anchor="right" id="Commander" order="6" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="8" weight="0.25" />
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="UI Designer" />
+      <window_info id="Capture Tool" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24964234" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" />
+      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32939634" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Maven Projects" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -348,28 +297,27 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/JavaSS.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trafficmon/ZoneBoundaryCrossing.java">
+    <entry file="file://$PROJECT_DIR$/tests/com/trafficmon/Tests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+        <state relative-caret-position="101">
+          <caret line="215" column="1" selection-start-line="215" selection-start-column="1" selection-end-line="215" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="162" column="22" selection-start-line="162" selection-start-column="22" selection-end-line="162" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/com/trafficmon/Tests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="206" column="46" selection-start-line="206" selection-start-column="46" selection-end-line="206" selection-end-column="46" />
+        <state relative-caret-position="302">
+          <caret line="153" column="29" selection-start-line="153" selection-start-column="29" selection-end-line="153" selection-end-column="29" />
+          <folding>
+            <element signature="e#6569#6570#0" expanded="true" />
+            <element signature="e#6618#6619#0" expanded="true" />
+            <element signature="e#6872#6873#0" expanded="true" />
+            <element signature="e#6930#6931#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -378,7 +326,7 @@
     <states>
       <state key="ProjectJDKs.UI">
         <settings>
-          <last-edited>1.10</last-edited>
+          <last-edited>9.0</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
