@@ -150,6 +150,18 @@ public class Tests {
     }
 
     @Test
+    public void checkOrderingIsFalseWhenStartWithExit()  throws InterruptedException{
+        system.vehicleLeavingZone(vehicleOne);
+        Thread.sleep(1000);
+        system.vehicleEnteringZone(vehicleOne);
+        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
+        for (ZoneBoundaryCrossing crossing : system.getEventLog()){
+            crossings.add(crossing);
+        }
+        assertEquals(system.getOrdering(crossings), false);
+    }
+
+    @Test
     public void calculatesChargeForEntryBeforeTwoLessThanFourHours(){
         system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
         system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
