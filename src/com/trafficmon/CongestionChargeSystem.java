@@ -9,7 +9,7 @@ import java.util.*;
 
 public class CongestionChargeSystem {
 
-    public static final BigDecimal CHARGE_RATE_POUNDS_PER_MINUTE = new BigDecimal(0.05);
+    public static final double CHARGE_RATE_POUNDS_PER_MINUTE = 0.05;
     public Map<Vehicle, BigDecimal> THE_CHARGE = new HashMap<>();
     public static final LocalTime TIME_BOUNDARY = LocalTime.of(14,00,00);
     private static final BigDecimal LOWER_FEE = new BigDecimal(4);
@@ -150,15 +150,15 @@ public class CongestionChargeSystem {
             if (crossing instanceof ExitEvent && lastEvent instanceof ExitEvent) {
                 return false;
             }
-            if (lastEvent instanceof EntryEvent){
-                return false;
-            }
-            if (crossing instanceof ExitEvent){
-                return false;
-            }
+//            if (lastEvent instanceof EntryEvent){
+//                return false;
+//            }
+//            if (crossing instanceof ExitEvent){
+//                return false;
+//            }
             lastEvent = crossing;
         }
-
+        if (lastEvent instanceof  EntryEvent) return false;
         return true;
     }
 
