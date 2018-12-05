@@ -107,7 +107,7 @@ public class Tests {
     @Test
     public void checksUnregisteredVehicleException() throws AccountNotRegisteredException, InsufficientCreditException{
         thrown.expect(AccountNotRegisteredException.class);
-        system.vehicleEnteringZone(vehicleTwo);
+        //system.vehicleEnteringZone(vehicleTwo);
         RegisteredCustomerAccountsService.getInstance().accountFor(vehicleTwo).deduct(BigDecimal.valueOf(1000000000));
     }
 
@@ -131,9 +131,7 @@ public class Tests {
         Thread.sleep(1000);
         system.vehicleEnteringZone(vehicleOne);
         List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
-        for (ZoneBoundaryCrossing crossing : system.getEventLog()){
-            crossings.add(crossing);
-        }
+        crossings.addAll(system.getEventLog());
         assertEquals(system.getOrdering(crossings), false);
     }
 
@@ -143,9 +141,7 @@ public class Tests {
         Thread.sleep(1000);
         system.vehicleLeavingZone(vehicleOne);
         List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
-        for (ZoneBoundaryCrossing crossing : system.getEventLog()){
-            crossings.add(crossing);
-        }
+        crossings.addAll(system.getEventLog());
         assertEquals(system.getOrdering(crossings), true);
     }
 
