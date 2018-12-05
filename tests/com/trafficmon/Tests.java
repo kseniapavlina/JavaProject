@@ -171,4 +171,15 @@ public class Tests {
         BigDecimal v2 = bd2.round(new MathContext(2));
         assertEquals(v1, v2);
     }
+
+    @Test
+    public void calculatesChargeForEntryAfterTwoLessThanFourHours(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(15,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(16,0,0)));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(1));
+        BigDecimal answer = new BigDecimal("4");
+        assertEquals(v, answer);
+    }
 }
