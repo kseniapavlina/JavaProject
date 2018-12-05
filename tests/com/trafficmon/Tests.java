@@ -287,4 +287,30 @@ public class Tests {
         assertEquals(v, answer);
     }
 
+    @Test
+    public void checkMultipleEntryAfterFourWithMoreThanFourBetween(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(15,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(16,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(23,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(23,30,0)));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(2));
+        BigDecimal answer = new BigDecimal("8");
+        assertEquals(v, answer);
+    }
+
+    @Test
+    public void checkMultipleEntryBeforeAndAfterTwo(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(13,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(14,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(15,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(15,30,0)));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(2));
+        BigDecimal answer = new BigDecimal("6");
+        assertEquals(v, answer);
+    }
+
 }
