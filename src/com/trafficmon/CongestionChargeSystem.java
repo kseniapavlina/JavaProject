@@ -113,7 +113,7 @@ public class CongestionChargeSystem {
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
         if (lastEvent instanceof  ExitEvent) return false;
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
-            if (crossing.timestamp().compareTo(lastEvent.timestamp()) < 0 )  return false;
+            if (compareTime(crossing.timestamp(), lastEvent.timestamp()) < 0 )  return false;
             if (crossing.getClass().equals(lastEvent.getClass())) return false;
             lastEvent = crossing;
         }
