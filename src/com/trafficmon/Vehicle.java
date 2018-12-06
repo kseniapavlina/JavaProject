@@ -12,7 +12,6 @@ public class Vehicle {
         this.registration = registration;
     }
 
-//  create new vehicle and returns a constructor  is pases it and not call it due to encapsulation
     public static Vehicle withRegistration(String registration) {
         return new Vehicle(registration);
     }

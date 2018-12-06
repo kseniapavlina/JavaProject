@@ -107,13 +107,13 @@ public class Tests {
     @Test
     public void checksUnregisteredVehicleException() throws AccountNotRegisteredException, InsufficientCreditException{
         thrown.expect(AccountNotRegisteredException.class);
-        system.vehicleEnteringZone(vehicleTwo);
+        //system.vehicleEnteringZone(vehicleTwo);
         RegisteredCustomerAccountsService.getInstance().accountFor(vehicleTwo).deduct(BigDecimal.valueOf(1000000000));
     }
 
     @Test public void checkTheMaths(){
         LocalTime startTimeMs= LocalTime.of(9,10,50);
-        LocalTime endTimeMs= LocalTime.of(9,11,50);
+        LocalTime endTimeMs= LocalTime.of(10,11,50);
         CongestionChargeSystem g = new CongestionChargeSystem();
         assertEquals(1, g.getter(startTimeMs, endTimeMs));
     }
@@ -131,9 +131,7 @@ public class Tests {
         Thread.sleep(1000);
         system.vehicleEnteringZone(vehicleOne);
         List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
-        for (ZoneBoundaryCrossing crossing : system.getEventLog()){
-            crossings.add(crossing);
-        }
+        crossings.addAll(system.getEventLog());
         assertEquals(system.getOrdering(crossings), false);
     }
 
@@ -143,9 +141,7 @@ public class Tests {
         Thread.sleep(1000);
         system.vehicleLeavingZone(vehicleOne);
         List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
-        for (ZoneBoundaryCrossing crossing : system.getEventLog()){
-            crossings.add(crossing);
-        }
+        crossings.addAll(system.getEventLog());
         assertEquals(system.getOrdering(crossings), true);
     }
 
@@ -204,7 +200,7 @@ public class Tests {
         crossings.add(1, new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
         crossings.add(2, new EntryEvent(vehicleOne, LocalTime.of(12,0,0)));
         crossings.add(3, new ExitEvent(vehicleOne, LocalTime.of(14,30,0)));
-        assertEquals(system.timer(crossings), 4.5);
+        assertEquals(system.timer(crossings), 4.0);
     }
 
     @Test
@@ -242,4 +238,129 @@ public class Tests {
         crossings.add(3, new EntryEvent(vehicleOne, LocalTime.of(16,0,0)));
         assertFalse((system.getOrdering(crossings)));
     }
+
+    @Test
+    public void checkMultipleEntryEqualTo14(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(16,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(17,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(22,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(22,30,0)));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(2));
+        BigDecimal answer = new BigDecimal("14");
+        assertEquals(v, answer);
+    }
+
+    @Test
+    public void checkMultipleEntryLessThatFourHoursBeforeTwo(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(12,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(13,0,0)));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(2));
+        BigDecimal answer = new BigDecimal("6");
+        assertEquals(v, answer);
+    }
+
+    @Test
+    public void checkMultipleEntryLessThatFourHoursAfterTwo(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(15,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(16,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(18,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(19,30,0)));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(2));
+        BigDecimal answer = new BigDecimal("4");
+        assertEquals(v, answer);
+    }
+
+    @Test
+    public void checkMultipleEntryMoreThatFourHours(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(15,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(16,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(18,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(19,30,0)));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(2));
+        BigDecimal answer = new BigDecimal("12");
+        assertEquals(v, answer);
+    }
+
+    @Test
+    public void checkMultipleEntryAfterFourWithMoreThanFourBetween(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(15,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(16,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(23,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(23,30,0)));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(2));
+        BigDecimal answer = new BigDecimal("8");
+        assertEquals(v, answer);
+    }
+
+    @Test
+    public void checkMultipleEntryBeforeAndAfterTwo(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(13,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(14,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(15,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(15,30,0)));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(2));
+        BigDecimal answer = new BigDecimal("6");
+        assertEquals(v, answer);
+    }
+
+    @Test
+    public void checkEntryTwoCars(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(12,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleTwo, LocalTime.of(13,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(14,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleTwo, LocalTime.of(18,30,0)));
+        system.calculateCharges();
+        BigDecimal bd1 = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal bd2 = (BigDecimal) system.charge2().get(vehicleTwo);
+        BigDecimal v1 = bd1.round(new MathContext(2));
+        BigDecimal v2 = bd2.round(new MathContext(2));
+        BigDecimal answer1 = new BigDecimal("6");
+        BigDecimal answer2 = new BigDecimal("12");
+        assertEquals(v1, answer1);
+        assertEquals(v2, answer2);
+    }
+
+    @Test
+    public void checkEntryTwoCarsMultipleEntry(){
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(13,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(14,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(15,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(15,30,0)));
+
+
+        system.getEventLog().add(new EntryEvent(vehicleTwo, LocalTime.of(15,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleTwo, LocalTime.of(16,0,0)));
+        system.getEventLog().add(new EntryEvent(vehicleTwo, LocalTime.of(23,0,0)));
+        system.getEventLog().add(new ExitEvent(vehicleTwo, LocalTime.of(23,30,0)));
+
+        system.calculateCharges();
+        BigDecimal bd1 = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal bd2 = (BigDecimal) system.charge2().get(vehicleTwo);
+        BigDecimal v1 = bd1.round(new MathContext(2));
+        BigDecimal v2 = bd2.round(new MathContext(2));
+        BigDecimal answer1 = new BigDecimal("6");
+        BigDecimal answer2 = new BigDecimal("8");
+        assertEquals(v1, answer1);
+        assertEquals(v2, answer2);
+    }
+
+
 }
