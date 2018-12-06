@@ -1,12 +1,11 @@
 package com.trafficmon;
 
 import java.math.BigDecimal;
-import java.time.LocalTime;
 import java.util.*;
 
 public class CongestionChargeSystem {
 
-    private Map<Vehicle, BigDecimal> THE_CHARGE = new HashMap<>();
+    private Map<Vehicle, BigDecimal> vehicleCharges = new HashMap<>();
 
     private final List<ZoneBoundaryCrossing> eventLog = new ArrayList<>();
 
@@ -45,7 +44,7 @@ public class CongestionChargeSystem {
 
                 BigDecimal charge = new ChargeCalculator().getCharge(crossings);
 
-                THE_CHARGE.put(vehicle, charge);
+                vehicleCharges.put(vehicle, charge);
                 try {
                     RegisteredCustomerAccountsService.getInstance().accountFor(vehicle).deduct(charge);
                 }
@@ -56,11 +55,6 @@ public class CongestionChargeSystem {
             }
         }
     }
-
-    public Map getChargeMap(){
-        return THE_CHARGE;
-    }
-
 
     private boolean previouslyRegistered(Vehicle vehicle) {
         for (ZoneBoundaryCrossing crossing : eventLog) {
@@ -79,7 +73,7 @@ public class CongestionChargeSystem {
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
         if (lastEvent instanceof  ExitEvent) return false;
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
-            if (compareTime(crossing.timestamp(), lastEvent.timestamp()) < 0 )  return false;
+            if (crossing.timestamp().compareTo(lastEvent.timestamp()) < 0 )  return false;
             if (crossing.getClass().equals(lastEvent.getClass())) return false;
             lastEvent = crossing;
         }
@@ -90,8 +84,4 @@ public class CongestionChargeSystem {
         return checkOrderingOf(crossings);
     }
 
-    // FIXME: 06/12/2018 we have two compareTime methods (here and ChargeCalculator)
-    private int compareTime(LocalTime x, LocalTime y){
-        return x.compareTo(y);
-    }
 }
