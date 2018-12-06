@@ -1,6 +1,5 @@
 package com.trafficmon;
 
-//import static jdk.nashorn.internal.objects.NativeMath.round;
 import static junit.framework.TestCase.assertEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -38,6 +37,20 @@ public class Tests {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    private void eventLogEntry(ZoneBoundaryCrossing crossing){
+        system.getEventLog().add(crossing);
+    }
+
+    private ControllableClock getCC(int hr, int min, int sec){
+        cc.currentTimeIs(hr, min, sec);
+        return cc;
+    }
+
+    private BigDecimal bd(Vehicle vehicle){
+        BigDecimal ans = (BigDecimal) system.getChargeMap().get(vehicle);
+        return ans.round(new MathContext(2));
+    }
+
     @Test
     public void checksGetRegistration(){
         assertEquals(vehicleOne.getRegistration(), "A123 XYZ");
@@ -59,29 +72,25 @@ public class Tests {
     public void assertVehicleHashCode(){
         assertEquals(vehicleOne.hashCode(), vehicleOneCopy.hashCode());
         assertNotEquals(vehicleOne.hashCode(), vehicleThree.hashCode());
-
         assertNotEquals(vehicleOne.hashCode(), 0);
         assertEquals(Vehicle.withRegistration(null).hashCode(), 0);
     }
 
     @Test
-    public void assertExitTimeStamp() throws InterruptedException {
-        system.vehicleEnteringZone(vehicleOne);
-        Thread.sleep(1000);
-        system.vehicleEnteringZone(vehicleTwo);
-
+    public void assertExitTimeStamp(){
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(9, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(10, 0, 0)));
         ZoneBoundaryCrossing crossingByOne = system.getEventLog().get(0);
         ZoneBoundaryCrossing crossingByTwo = system.getEventLog().get(1);
         assertThat(crossingByTwo.timestamp(), greaterThan(crossingByOne.timestamp()));
     }
 
     @Test
-    public void assertEnteringTime() throws InterruptedException {
-        system.vehicleEnteringZone(vehicleOne);
+    public void assertEnteringTime(){
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(9, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(10, 0, 0)));
         LocalTime timestamp = system.getEventLog().get(0).timestamp();
-        system.vehicleLeavingZone(vehicleOne);
-        Thread.sleep(1000);
-        system.vehicleEnteringZone(vehicleOne);
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(12, 0, 0)));
         ZoneBoundaryCrossing crossing = system.getEventLog().get(2);
         assertThat(crossing.timestamp(), greaterThan(timestamp));
 
@@ -108,7 +117,6 @@ public class Tests {
     @Test
     public void checksUnregisteredVehicleException() throws AccountNotRegisteredException, InsufficientCreditException{
         thrown.expect(AccountNotRegisteredException.class);
-        //system.vehicleEnteringZone(vehicleTwo);
         RegisteredCustomerAccountsService.getInstance().accountFor(vehicleTwo).deduct(BigDecimal.valueOf(1000000000));
     }
 
@@ -127,309 +135,204 @@ public class Tests {
     }
 
     @Test
-    public void checkOrderingIsFalse()  throws InterruptedException{
-        system.vehicleEnteringZone(vehicleOne);
-        Thread.sleep(1000);
-        system.vehicleEnteringZone(vehicleOne);
+    public void checkOrderingIsFalse(){
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(9, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(10, 0, 0)));
         List<ZoneBoundaryCrossing> crossings = new ArrayList<>(system.getEventLog());
         assertEquals(system.getOrdering(crossings), false);
     }
 
     @Test
-    public void checkOrderingIsTrue()  throws InterruptedException{
-        system.vehicleEnteringZone(vehicleOne);
-        Thread.sleep(1000);
-        system.vehicleLeavingZone(vehicleOne);
-        List<ZoneBoundaryCrossing> crossings = new ArrayList<>(system.getEventLog());
-        assertEquals(system.getOrdering(crossings), true);
+    public void checkOrderingIsTrue(){
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(9, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(10, 0, 0)));
+        assertEquals(system.getOrdering(system.getEventLog()), true);
     }
 
     @Test
-    public void checkOrderingIsFalseWhenStartWithExit()  throws InterruptedException{
-        system.vehicleLeavingZone(vehicleOne);
-        Thread.sleep(1000);
-        system.vehicleEnteringZone(vehicleOne);
-        List<ZoneBoundaryCrossing> crossings = new ArrayList<>(system.getEventLog());
-        assertEquals(system.getOrdering(crossings), false);
+    public void checkOrderingIsFalseWhenStartWithExit(){
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(12, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(13, 0, 0)));
+        assertEquals(system.getOrdering(system.getEventLog()), false);
     }
 
     @Test
     public void calculatesChargeForEntryBeforeTwoLessThanFourHours(){
-        cc.currentTimeIs(9, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(11, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(9, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(11, 0, 0)));
         system.calculateCharges();
-        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-        BigDecimal v = bd.round(new MathContext(1));
         BigDecimal answer = new BigDecimal("6");
-        assertEquals(v, answer);
+        assertEquals(bd(vehicleOne), answer);
     }
 
     @Test
     public void calculatesChargeForLongerThanFourHours(){
-        cc.currentTimeIs(9, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(14, 30 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleThree, cc));
-        cc.currentTimeIs(18, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(22, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleThree, cc));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(9, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleThree, getCC(14, 30, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(18, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleThree, getCC(22, 0, 0)));
         system.calculateCharges();
-        BigDecimal bd1 = (BigDecimal) system.charge2().get(vehicleOne);
-        BigDecimal v1 = bd1.round(new MathContext(2));
-        BigDecimal bd2 = (BigDecimal) system.charge2().get(vehicleThree);
-        BigDecimal v2 = bd2.round(new MathContext(2));
-        assertEquals(v1, v2);
+        assertEquals(bd(vehicleOne), bd(vehicleThree));
     }
 
     @Test
     public void calculatesChargeForEntryAfterTwoLessThanFourHours(){
-        cc.currentTimeIs(15, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(16, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(15, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(16, 0, 0)));
         system.calculateCharges();
-        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-        BigDecimal v = bd.round(new MathContext(1));
         BigDecimal answer = new BigDecimal("4");
-        assertEquals(v, answer);
+        assertEquals(bd(vehicleOne), answer);
     }
 
     @Test
     public void checksTimer(){
-        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
-        cc.currentTimeIs(9, 0 , 0);
-        crossings.add(0, new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(11, 0 , 0);
-        crossings.add(1, new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(12, 0 , 0);
-        crossings.add(2, new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(14, 30 , 0);
-        crossings.add(3, new ExitEvent(vehicleOne, cc));
-        assertEquals(new ChargeCalculator().timer(crossings), 4.5);
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(9, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(11, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(12, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(14, 30, 0)));
+        assertEquals(new ChargeCalculator().timer(system.getEventLog()), 4.5);
     }
 
     @Test
     public void calculatesChargesWithLeaving(){
-        cc.currentTimeIs(9, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(11, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(12, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(13, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(19, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(19, 30 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(9, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(11, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(12, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(13, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(19, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(19, 30, 0)));
         system.calculateCharges();
-        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-        BigDecimal v = bd.round(new MathContext(2));
         BigDecimal answer = new BigDecimal("10");
-        assertEquals(v, answer);
+        assertEquals(bd(vehicleOne), answer);
     }
 
     @Test
     public void checkOrderingLastIsEntry(){
-        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
-        cc.currentTimeIs(9, 0 , 0);
-        crossings.add(0, new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(11, 0 , 0);
-        crossings.add(1, new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(12, 0 , 0);
-        crossings.add(2, new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(14, 30 , 0);
-        crossings.add(3, new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(16, 0 , 0);
-        crossings.add(4, new EntryEvent(vehicleOne, cc));
-        assertFalse((system.getOrdering(crossings)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(9, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(11, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(12, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(14, 30, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(16, 0, 0)));
+        assertFalse(system.getOrdering(system.getEventLog()));
     }
 
     @Test
     public void checkOrderingFirstIsExit(){
-        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
-        cc.currentTimeIs(11, 0 , 0);
-        crossings.add(0, new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(12, 0 , 0);
-        crossings.add(1, new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(14, 0 , 0);
-        crossings.add(2, new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(16, 0 , 0);
-        crossings.add(3, new EntryEvent(vehicleOne, cc));
-        assertFalse((system.getOrdering(crossings)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(11, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(12, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(14, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(16, 0, 0)));
+        assertFalse((system.getOrdering(system.getEventLog())));
     }
 
     @Test
     public void checkMultipleEntryEqualTo14(){
-        cc.currentTimeIs(9, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(11, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(16, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(17, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(22, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(22, 30 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(9, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(11, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(16, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(17, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(22, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(22, 30, 0)));
         system.calculateCharges();
-        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-        BigDecimal v = bd.round(new MathContext(2));
         BigDecimal answer = new BigDecimal("14");
-        assertEquals(v, answer);
+        assertEquals(bd(vehicleOne), answer);
     }
 
     @Test
     public void checkMultipleEntryLessThatFourHoursBeforeTwo(){
-        cc.currentTimeIs(9, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(11, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(12, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(13, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(9, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(11, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(12, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(13, 0, 0)));
         system.calculateCharges();
-        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-        BigDecimal v = bd.round(new MathContext(2));
         BigDecimal answer = new BigDecimal("6");
-        assertEquals(v, answer);
+        assertEquals(bd(vehicleOne), answer);
     }
 
     @Test
     public void checkMultipleEntryLessThatFourHoursAfterTwo(){
-        cc.currentTimeIs(15, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(16, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(18, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(19, 30 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(15, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(16, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(18, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(19, 30, 0)));
         system.calculateCharges();
-        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-        BigDecimal v = bd.round(new MathContext(2));
         BigDecimal answer = new BigDecimal("4");
-        assertEquals(v, answer);
+        assertEquals(bd(vehicleOne), answer);
     }
 
     @Test
     public void checkMultipleEntryMoreThatFourHours(){
-        cc.currentTimeIs(9, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(11, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(15, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(16, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(18, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(19, 30 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(9, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(11, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(15, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(16, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(18, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(19, 30, 0)));
         system.calculateCharges();
-        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-        BigDecimal v = bd.round(new MathContext(2));
         BigDecimal answer = new BigDecimal("12");
-        assertEquals(v, answer);
+        assertEquals(bd(vehicleOne), answer);
     }
 
     @Test
     public void checkMultipleEntryAfterFourWithMoreThanFourBetween(){
-        cc.currentTimeIs(15, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(16, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(23, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(23, 30 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(15, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(16, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(23, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(23, 30, 0)));
         system.calculateCharges();
-        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-        BigDecimal v = bd.round(new MathContext(2));
         BigDecimal answer = new BigDecimal("8");
-        assertEquals(v, answer);
+        assertEquals(bd(vehicleOne), answer);
     }
 
     @Test
     public void checkMultipleEntryBeforeAndAfterTwo(){
-        cc.currentTimeIs(13, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(14, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(15, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(15, 30 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(13, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(14, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(15, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(15, 30, 0)));
         system.calculateCharges();
-        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-        BigDecimal v = bd.round(new MathContext(2));
         BigDecimal answer = new BigDecimal("6");
-        assertEquals(v, answer);
+        assertEquals(bd(vehicleOne), answer);
     }
 
     @Test
     public void checkEntryTwoCars(){
-        cc.currentTimeIs(12, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(13, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleTwo, cc));
-        cc.currentTimeIs(14, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(18, 30 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleTwo, cc));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(12, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleTwo, getCC(13, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(14, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleTwo, getCC(18, 30, 0)));
+
         system.calculateCharges();
-        BigDecimal bd1 = (BigDecimal) system.charge2().get(vehicleOne);
-        BigDecimal bd2 = (BigDecimal) system.charge2().get(vehicleTwo);
-        BigDecimal v1 = bd1.round(new MathContext(2));
-        BigDecimal v2 = bd2.round(new MathContext(2));
         BigDecimal answer1 = new BigDecimal("6");
         BigDecimal answer2 = new BigDecimal("12");
-        assertEquals(v1, answer1);
-        assertEquals(v2, answer2);
+        assertEquals(bd(vehicleOne), answer1);
+        assertEquals(bd(vehicleTwo), answer2);
     }
 
     @Test
     public void checkEntryTwoCarsMultipleEntry(){
-        cc.currentTimeIs(13, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(14, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
-        cc.currentTimeIs(15, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(15, 30 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(13, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(14, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(15, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(15, 30, 0)));
 
-        cc.currentTimeIs(15, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleTwo, cc));
-        cc.currentTimeIs(16, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleTwo, cc));
-        cc.currentTimeIs(23, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleTwo, cc));
-        cc.currentTimeIs(23, 30 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleTwo, cc));
+        eventLogEntry(new EntryEvent(vehicleTwo, getCC(15, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleTwo, getCC(16, 0, 0)));
+        eventLogEntry(new EntryEvent(vehicleTwo, getCC(23, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleTwo, getCC(23, 30, 0)));
 
         system.calculateCharges();
-        BigDecimal bd1 = (BigDecimal) system.charge2().get(vehicleOne);
-        BigDecimal bd2 = (BigDecimal) system.charge2().get(vehicleTwo);
-        BigDecimal v1 = bd1.round(new MathContext(2));
-        BigDecimal v2 = bd2.round(new MathContext(2));
+
         BigDecimal answer1 = new BigDecimal("6");
         BigDecimal answer2 = new BigDecimal("8");
-        assertEquals(v1, answer1);
-        assertEquals(v2, answer2);
+        assertEquals(bd(vehicleOne), answer1);
+        assertEquals(bd(vehicleTwo), answer2);
     }
 
     @Test
     public void checksIsRegistered(){
-        cc.currentTimeIs(13, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(14, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        eventLogEntry(new EntryEvent(vehicleOne, getCC(13, 0, 0)));
+        eventLogEntry(new ExitEvent(vehicleOne, getCC(14, 0, 0)));
         assertTrue(system.isRegistered(vehicleOne));
         assertFalse(system.isRegistered(vehicleTwo));
     }

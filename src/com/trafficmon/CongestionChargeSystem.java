@@ -57,7 +57,7 @@ public class CongestionChargeSystem {
         }
     }
 
-    public Map charge2(){
+    public Map getChargeMap(){
         return THE_CHARGE;
     }
 
@@ -90,7 +90,7 @@ public class CongestionChargeSystem {
         return checkOrderingOf(crossings);
     }
 
-
+    // FIXME: 06/12/2018 we have two compareTime methods (here and ChargeCalculator)
     private int compareTime(LocalTime x, LocalTime y){
         return x.compareTo(y);
     }
