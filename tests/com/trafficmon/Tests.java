@@ -28,6 +28,7 @@ public class Tests {
     Vehicle vehicleTwo = Vehicle.withRegistration("B123 XYZ");
     Vehicle vehicleThree = Vehicle.withRegistration("J091 4PY");
     Vehicle vehicleOneCopy = Vehicle.withRegistration("A123 XYZ");
+    private ControlableClock cc = new ControlableClock();;
 
     CongestionChargeSystem system = new CongestionChargeSystem();
 
@@ -41,10 +42,8 @@ public class Tests {
 
     @Test
     public void killMeSoftly(){
-        ControlableClock cc = new ControlableClock();
         cc.currentTimeIs(15, 0 , 0);
-
-        system.getEventLog().add(new EntryEvent(vehicleOne,  cc));
+        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
         cc.currentTimeIs(16, 0 , 0);
         system.getEventLog().add(new ExitEvent(vehicleOne, cc));
 
