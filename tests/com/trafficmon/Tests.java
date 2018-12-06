@@ -41,20 +41,6 @@ public class Tests {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void killMeSoftly(){
-        cc.currentTimeIs(15, 0 , 0);
-        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
-        cc.currentTimeIs(16, 0 , 0);
-        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
-
-        system.calculateCharges();
-        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-        BigDecimal v = bd.round(new MathContext(1));
-        BigDecimal answer = new BigDecimal("4");
-        assertEquals(v, answer);
-    }
-
-    @Test
     public void checksGetRegistration(){
         assertEquals(vehicleOne.getRegistration(), "A123 XYZ");
         assertNotEquals(vehicleTwo.getRegistration(), "A123 XYZ");
