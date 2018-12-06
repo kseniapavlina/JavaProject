@@ -32,6 +32,7 @@ public class Tests {
     private ControllableClock controllableClock = new ControllableClock();
 
     private CongestionChargeSystem congestionChargeSystem = new CongestionChargeSystem();
+    private Register register = new Register();
 
     @Rule
     public JUnitRuleMockery context = new JUnitRuleMockery();
@@ -160,22 +161,31 @@ public class Tests {
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(10, 0, 0)));
         List<ZoneBoundaryCrossing> crossings = new ArrayList<>(congestionChargeSystem.getEventLog());
-        assertEquals(congestionChargeSystem.getOrdering(crossings), false);
+        assertEquals(register.getOrdering(crossings), false);
     }
 
     @Test
     public void checkOrderingIsTrue(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(10, 0, 0)));
-        assertEquals(congestionChargeSystem.getOrdering(congestionChargeSystem.getEventLog()), true);
+        assertEquals(register.getOrdering(congestionChargeSystem.getEventLog()), true);
     }
 
     @Test
     public void checkOrderingIsFalseWhenStartWithExit(){
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(12, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(13, 0, 0)));
-        assertEquals(congestionChargeSystem.getOrdering(congestionChargeSystem.getEventLog()), false);
+        assertEquals(register.getOrdering(congestionChargeSystem.getEventLog()), false);
     }
+
+//    @Test
+//    public void bullshit(){
+//        eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(12, 0, 0)));
+//        eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(13, 0, 0)));
+//
+//        congestionChargeSystem.calculateCharges();
+//
+//    }
 
     @Test
     public void calculatesChargeForEntryBeforeTwoLessThanFourHours() {
@@ -240,7 +250,7 @@ public class Tests {
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(12, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(14, 30, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(16, 0, 0)));
-        assertFalse(congestionChargeSystem.getOrdering(congestionChargeSystem.getEventLog()));
+        assertFalse(register.getOrdering(congestionChargeSystem.getEventLog()));
     }
 
     @Test
@@ -249,7 +259,7 @@ public class Tests {
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(12, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(14, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(16, 0, 0)));
-        assertFalse((congestionChargeSystem.getOrdering(congestionChargeSystem.getEventLog())));
+        assertFalse((register.getOrdering(congestionChargeSystem.getEventLog())));
     }
 
     @Test
@@ -360,8 +370,9 @@ public class Tests {
     public void checksIsRegistered(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(13, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(14, 0, 0)));
-        assertTrue(congestionChargeSystem.isRegistered(vehicleOne));
-        assertFalse(congestionChargeSystem.isRegistered(vehicleTwo));
+        List<ZoneBoundaryCrossing> e = congestionChargeSystem.getEventLog();
+        assertTrue(register.isRegistered(vehicleOne, e));
+        assertFalse(register.isRegistered(vehicleTwo, e));
     }
 
     private class ControllableClock implements Clock {

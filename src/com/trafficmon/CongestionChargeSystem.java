@@ -14,7 +14,7 @@ public class CongestionChargeSystem {
     }
 
     public void vehicleLeavingZone(Vehicle vehicle) {
-        if (!previouslyRegistered(vehicle)) {
+        if (!new Register().previouslyRegistered(vehicle, eventLog)) {
             return;
         }
         eventLog.add(new ExitEvent(vehicle));
@@ -33,55 +33,23 @@ public class CongestionChargeSystem {
             }
             crossingsByVehicle.get(crossing.getVehicle()).add(crossing);
         }
+
         for (Map.Entry<Vehicle, List<ZoneBoundaryCrossing>> vehicleCrossings : crossingsByVehicle.entrySet()) {
             Vehicle vehicle = vehicleCrossings.getKey();
             List<ZoneBoundaryCrossing> crossings = vehicleCrossings.getValue();
 
-            if (!checkOrderingOf(crossings)) {
+            if (!new Register().checkOrderingOf(crossings)) {
                 OperationsTeam.getInstance().triggerInvestigationInto(vehicle);
-            }
-            else {
-
+            } else {
                 BigDecimal charge = new ChargeCalculator().getCharge(crossings);
 
                 vehicleCharges.put(vehicle, charge);
                 try {
                     RegisteredCustomerAccountsService.getInstance().accountFor(vehicle).deduct(charge);
-                }
-                catch (InsufficientCreditException | AccountNotRegisteredException ice) {
+                } catch (InsufficientCreditException | AccountNotRegisteredException ice) {
                     OperationsTeam.getInstance().issuePenaltyNotice(vehicle, charge);
                 }
-
             }
         }
     }
-
-    private boolean previouslyRegistered(Vehicle vehicle) {
-        for (ZoneBoundaryCrossing crossing : eventLog) {
-            if (crossing.getVehicle().equals(vehicle)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean isRegistered(Vehicle vehicle){
-        return previouslyRegistered(vehicle);
-    }
-
-    private boolean checkOrderingOf(List<ZoneBoundaryCrossing> crossings) {
-        ZoneBoundaryCrossing lastEvent = crossings.get(0);
-        if (lastEvent instanceof  ExitEvent) return false;
-        for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
-            if (crossing.timestamp().compareTo(lastEvent.timestamp()) < 0 )  return false;
-            if (crossing.getClass().equals(lastEvent.getClass())) return false;
-            lastEvent = crossing;
-        }
-        return !(lastEvent instanceof EntryEvent);
-    }
-
-    public boolean getOrdering(List<ZoneBoundaryCrossing> crossings){
-        return checkOrderingOf(crossings);
-    }
-
 }
