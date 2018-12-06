@@ -115,7 +115,7 @@ public class Tests {
         LocalTime startTimeMs= LocalTime.of(9,10,50);
         LocalTime endTimeMs= LocalTime.of(10,11,50);
         CongestionChargeSystem g = new CongestionChargeSystem();
-        assertEquals(1, g.getter(startTimeMs, endTimeMs));
+        assertEquals(61/60.0, g.getter(startTimeMs, endTimeMs));
     }
 
 
@@ -200,7 +200,7 @@ public class Tests {
         crossings.add(1, new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
         crossings.add(2, new EntryEvent(vehicleOne, LocalTime.of(12,0,0)));
         crossings.add(3, new ExitEvent(vehicleOne, LocalTime.of(14,30,0)));
-        assertEquals(system.timer(crossings), 4.0);
+        assertEquals(system.timer(crossings), 4.5);
     }
 
     @Test

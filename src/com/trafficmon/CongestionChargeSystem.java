@@ -126,11 +126,11 @@ public class CongestionChargeSystem {
 
 
     //Quick Maffs
-    private long hoursBetween(LocalTime startTimeMs, LocalTime endTimeMs) {
-        return (int) Math.ceil(ChronoUnit.HOURS.between(startTimeMs, endTimeMs));
+    private double hoursBetween(LocalTime startTimeMs, LocalTime endTimeMs) {
+        return Math.ceil(ChronoUnit.MINUTES.between(startTimeMs, endTimeMs)) / 60.0;
     }
 
-    public long getter(LocalTime startTimeMs, LocalTime endTimeMs){
+    public double getter(LocalTime startTimeMs, LocalTime endTimeMs){
         return hoursBetween(startTimeMs, endTimeMs);
     }
 
