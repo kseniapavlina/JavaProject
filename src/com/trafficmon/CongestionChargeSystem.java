@@ -2,7 +2,6 @@ package com.trafficmon;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class CongestionChargeSystem {
@@ -44,7 +43,7 @@ public class CongestionChargeSystem {
             }
             else {
 
-                BigDecimal charge = new ChargeTest().getCharge(crossings);
+                BigDecimal charge = new ChargeCalculator().getCharge(crossings);
 
                 THE_CHARGE.put(vehicle, charge);
                 try {
