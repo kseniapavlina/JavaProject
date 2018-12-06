@@ -28,9 +28,9 @@ public class Tests {
     Vehicle vehicleTwo = Vehicle.withRegistration("B123 XYZ");
     Vehicle vehicleThree = Vehicle.withRegistration("J091 4PY");
     Vehicle vehicleOneCopy = Vehicle.withRegistration("A123 XYZ");
-    private ControlableClock cc = new ControlableClock();;
+    private ControlableClock cc = new ControlableClock();
 
-    CongestionChargeSystem system = new CongestionChargeSystem();
+    private CongestionChargeSystem system = new CongestionChargeSystem();
 
     @Rule
     public JUnitRuleMockery context = new JUnitRuleMockery();
@@ -154,108 +154,139 @@ public class Tests {
         Thread.sleep(1000);
         system.vehicleEnteringZone(vehicleOne);
         List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
-        for (ZoneBoundaryCrossing crossing : system.getEventLog()){
-            crossings.add(crossing);
-        }
+        crossings.addAll(system.getEventLog());
         assertEquals(system.getOrdering(crossings), false);
     }
 
-//    @Test
-//    public void calculatesChargeForEntryBeforeTwoLessThanFourHours(){
-//        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
-//        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
-//        system.calculateCharges();
-//        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-//        BigDecimal v = bd.round(new MathContext(1));
-//        BigDecimal answer = new BigDecimal("6");
-//        assertEquals(v, answer);
-//    }
+    @Test
+    public void calculatesChargeForEntryBeforeTwoLessThanFourHours(){
+        cc.currentTimeIs(9, 0 , 0);
+        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
+        cc.currentTimeIs(11, 0 , 0);
+        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(1));
+        BigDecimal answer = new BigDecimal("6");
+        assertEquals(v, answer);
+    }
 
-//    @Test
-//    public void calculatesChargeForLongerThanFourHours(){
-//        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
-//        system.getEventLog().add(new EntryEvent(vehicleThree, LocalTime.of(14, 30,0)));
-//        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(18,0,0)));
-//        system.getEventLog().add(new ExitEvent(vehicleThree, LocalTime.of(22,0,0)));
-//        system.calculateCharges();
-//        BigDecimal bd1 = (BigDecimal) system.charge2().get(vehicleOne);
-//        BigDecimal v1 = bd1.round(new MathContext(2));
-//        BigDecimal bd2 = (BigDecimal) system.charge2().get(vehicleThree);
-//        BigDecimal v2 = bd2.round(new MathContext(2));
-//        assertEquals(v1, v2);
-//    }
-//
-//    @Test
-//    public void calculatesChargeForEntryAfterTwoLessThanFourHours(){
-//        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(15,0,0)));
-//        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(16,0,0)));
-//        system.calculateCharges();
-//        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-//        BigDecimal v = bd.round(new MathContext(1));
-//        BigDecimal answer = new BigDecimal("4");
-//        assertEquals(v, answer);
-//    }
-//
-//    @Test
-//    public void checksTimer(){
-//        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
-//        crossings.add(0, new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
-//        crossings.add(1, new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
-//        crossings.add(2, new EntryEvent(vehicleOne, LocalTime.of(12,0,0)));
-//        crossings.add(3, new ExitEvent(vehicleOne, LocalTime.of(14,30,0)));
-//        assertEquals(system.timer(crossings), 4.5);
-//    }
-//
-//    @Test
-//    public void calculatesChargesWithLeaving(){
-//        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
-//        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
-//        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(12,0,0)));
-//        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(13,0,0)));
-//        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(19,0,0)));
-//        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(19,30,0)));
-//        system.calculateCharges();
-//        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-//        BigDecimal v = bd.round(new MathContext(2));
-//        BigDecimal answer = new BigDecimal("10");
-//        assertEquals(v, answer);
-//    }
-//
-//    @Test
-//    public void checkOrderingLastIsEntry(){
-//        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
-//        crossings.add(0, new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
-//        crossings.add(1, new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
-//        crossings.add(2, new EntryEvent(vehicleOne, LocalTime.of(12,0,0)));
-//        crossings.add(3, new ExitEvent(vehicleOne, LocalTime.of(14,30,0)));
-//        crossings.add(4, new EntryEvent(vehicleOne, LocalTime.of(16,0,0)));
-//        assertFalse((system.getOrdering(crossings)));
-//    }
-//
-//    @Test
-//    public void checkOrderingFirstIsExit(){
-//        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
-//        crossings.add(0, new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
-//        crossings.add(1, new EntryEvent(vehicleOne, LocalTime.of(12,0,0)));
-//        crossings.add(2, new ExitEvent(vehicleOne, LocalTime.of(14,30,0)));
-//        crossings.add(3, new EntryEvent(vehicleOne, LocalTime.of(16,0,0)));
-//        assertFalse((system.getOrdering(crossings)));
-//    }
-//
-//    @Test
-//    public void checkMultipleEntryEqualTo14(){
-//        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(9,0,0)));
-//        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(11,0,0)));
-//        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(16,0,0)));
-//        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(17,0,0)));
-//        system.getEventLog().add(new EntryEvent(vehicleOne, LocalTime.of(22,0,0)));
-//        system.getEventLog().add(new ExitEvent(vehicleOne, LocalTime.of(22,30,0)));
-//        system.calculateCharges();
-//        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
-//        BigDecimal v = bd.round(new MathContext(2));
-//        BigDecimal answer = new BigDecimal("14");
-//        assertEquals(v, answer);
-//    }
+    @Test
+    public void calculatesChargeForLongerThanFourHours(){
+        cc.currentTimeIs(9, 0 , 0);
+        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
+        cc.currentTimeIs(14, 30 , 0);
+        system.getEventLog().add(new EntryEvent(vehicleThree, cc));
+        cc.currentTimeIs(18, 0 , 0);
+        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        cc.currentTimeIs(22, 0 , 0);
+        system.getEventLog().add(new ExitEvent(vehicleThree, cc));
+        system.calculateCharges();
+        BigDecimal bd1 = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v1 = bd1.round(new MathContext(2));
+        BigDecimal bd2 = (BigDecimal) system.charge2().get(vehicleThree);
+        BigDecimal v2 = bd2.round(new MathContext(2));
+        assertEquals(v1, v2);
+    }
+
+    @Test
+    public void calculatesChargeForEntryAfterTwoLessThanFourHours(){
+        cc.currentTimeIs(15, 0 , 0);
+        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
+        cc.currentTimeIs(16, 0 , 0);
+        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(1));
+        BigDecimal answer = new BigDecimal("4");
+        assertEquals(v, answer);
+    }
+
+    @Test
+    public void checksTimer(){
+        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
+        cc.currentTimeIs(9, 0 , 0);
+        crossings.add(0, new EntryEvent(vehicleOne, cc));
+        cc.currentTimeIs(11, 0 , 0);
+        crossings.add(1, new ExitEvent(vehicleOne, cc));
+        cc.currentTimeIs(12, 0 , 0);
+        crossings.add(2, new EntryEvent(vehicleOne, cc));
+        cc.currentTimeIs(14, 30 , 0);
+        crossings.add(3, new ExitEvent(vehicleOne, cc));
+        assertEquals(system.timer(crossings), 4.5);
+    }
+
+    @Test
+    public void calculatesChargesWithLeaving(){
+        cc.currentTimeIs(9, 0 , 0);
+        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
+        cc.currentTimeIs(11, 0 , 0);
+        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        cc.currentTimeIs(12, 0 , 0);
+        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
+        cc.currentTimeIs(13, 0 , 0);
+        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        cc.currentTimeIs(19, 0 , 0);
+        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
+        cc.currentTimeIs(19, 30 , 0);
+        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(2));
+        BigDecimal answer = new BigDecimal("10");
+        assertEquals(v, answer);
+    }
+
+    @Test
+    public void checkOrderingLastIsEntry(){
+        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
+        cc.currentTimeIs(9, 0 , 0);
+        crossings.add(0, new EntryEvent(vehicleOne, cc));
+        cc.currentTimeIs(11, 0 , 0);
+        crossings.add(1, new ExitEvent(vehicleOne, cc));
+        cc.currentTimeIs(12, 0 , 0);
+        crossings.add(2, new EntryEvent(vehicleOne, cc));
+        cc.currentTimeIs(14, 30 , 0);
+        crossings.add(3, new ExitEvent(vehicleOne, cc));
+        cc.currentTimeIs(16, 0 , 0);
+        crossings.add(4, new EntryEvent(vehicleOne, cc));
+        assertFalse((system.getOrdering(crossings)));
+    }
+
+    @Test
+    public void checkOrderingFirstIsExit(){
+        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
+        cc.currentTimeIs(11, 0 , 0);
+        crossings.add(0, new ExitEvent(vehicleOne, cc));
+        cc.currentTimeIs(12, 0 , 0);
+        crossings.add(1, new EntryEvent(vehicleOne, cc));
+        cc.currentTimeIs(14, 0 , 0);
+        crossings.add(2, new ExitEvent(vehicleOne, cc));
+        cc.currentTimeIs(16, 0 , 0);
+        crossings.add(3, new EntryEvent(vehicleOne, cc));
+        assertFalse((system.getOrdering(crossings)));
+    }
+
+    @Test
+    public void checkMultipleEntryEqualTo14(){
+        cc.currentTimeIs(9, 0 , 0);
+        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
+        cc.currentTimeIs(11, 0 , 0);
+        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        cc.currentTimeIs(16, 0 , 0);
+        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
+        cc.currentTimeIs(17, 0 , 0);
+        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        cc.currentTimeIs(22, 0 , 0);
+        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
+        cc.currentTimeIs(22, 30 , 0);
+        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        system.calculateCharges();
+        BigDecimal bd = (BigDecimal) system.charge2().get(vehicleOne);
+        BigDecimal v = bd.round(new MathContext(2));
+        BigDecimal answer = new BigDecimal("14");
+        assertEquals(v, answer);
+    }
 
     @Test
     public void checkMultipleEntryLessThatFourHoursBeforeTwo(){
