@@ -117,7 +117,7 @@ public class Tests {
     @Test public void checkTheMaths(){
         LocalTime startTimeMs= LocalTime.of(9,10,50);
         LocalTime endTimeMs= LocalTime.of(10,11,50);
-        CongestionChargeSystem g = new CongestionChargeSystem();
+        ChargeTest g = new ChargeTest();
         assertEquals(61/60.0, g.getter(startTimeMs, endTimeMs));
     }
 
@@ -213,7 +213,7 @@ public class Tests {
         crossings.add(2, new EntryEvent(vehicleOne, cc));
         cc.currentTimeIs(14, 30 , 0);
         crossings.add(3, new ExitEvent(vehicleOne, cc));
-        assertEquals(system.timer(crossings), 4.5);
+        assertEquals(new ChargeTest().timer(crossings), 4.5);
     }
 
     @Test

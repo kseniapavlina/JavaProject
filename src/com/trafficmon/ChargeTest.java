@@ -67,4 +67,8 @@ public class ChargeTest {
     private int compareTime(LocalTime x, LocalTime y){
         return x.compareTo(y);
     }
+
+        public double getter(LocalTime startTimeMs, LocalTime endTimeMs){
+        return hoursBetween(startTimeMs, endTimeMs);
+    }
 }
