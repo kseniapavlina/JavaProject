@@ -83,7 +83,7 @@ public class CongestionChargeSystem {
                 }
             }
             for (LocalTime time : timesToCharge){
-                if (time.compareTo(TIME_BOUNDARY) <= 0) charge = charge.add(UPPER_FEE);
+                if (compareTime(time, TIME_BOUNDARY) <= 0) charge = charge.add(UPPER_FEE);
                 else charge = charge.add(LOWER_FEE);
             }
         }
@@ -113,8 +113,15 @@ public class CongestionChargeSystem {
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
         if (lastEvent instanceof  ExitEvent) return false;
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
-            if (crossing.timestamp().compareTo(lastEvent.timestamp()) < 0 )  return false;
-            if (crossing.getClass().equals(lastEvent.getClass())) return false;
+            if (compareTime(crossing.timestamp(), lastEvent.timestamp()) < 0 ) {
+                return false;
+            }
+            if (crossing instanceof EntryEvent && lastEvent instanceof EntryEvent) {
+                return false;
+            }
+            if (crossing instanceof ExitEvent && lastEvent instanceof ExitEvent) {
+                return false;
+            }
             lastEvent = crossing;
         }
         return !(lastEvent instanceof EntryEvent);
@@ -132,5 +139,9 @@ public class CongestionChargeSystem {
 
     public long getter(LocalTime startTimeMs, LocalTime endTimeMs){
         return hoursBetween(startTimeMs, endTimeMs);
+    }
+
+    private int compareTime(LocalTime x, LocalTime y){
+        return x.compareTo(y);
     }
 }
