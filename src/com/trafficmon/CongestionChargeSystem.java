@@ -72,10 +72,10 @@ public class CongestionChargeSystem {
         LocalTime criticalTime = crossings.get(1).timestamp();
         timesToCharge.add(lastEvent.timestamp());
         BigDecimal charge = new BigDecimal(0);
-        if (timer(crossings) < 4){
+        if (timer(crossings) < HOUR_BETWEEN){
             for (ZoneBoundaryCrossing crossing : crossings.subList(2, crossings.size())){
                 if (crossing instanceof EntryEvent){
-                    if (hoursBetween(criticalTime, crossing.timestamp()) > 4){
+                    if (hoursBetween(criticalTime, crossing.timestamp()) > HOUR_BETWEEN){
                         int i = crossings.indexOf(crossing);
                         criticalTime = crossings.get(i).timestamp();
                         timesToCharge.add(crossing.timestamp());

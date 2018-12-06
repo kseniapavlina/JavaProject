@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="10991e43-75e7-4947-a348-7363d0a40ec0" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaSS/com/trafficmon/CongestionChargeSystem.class" afterPath="$PROJECT_DIR$/out/production/JavaSS/com/trafficmon/CongestionChargeSystem.class" />
-      <change beforePath="$PROJECT_DIR$/out/test/JavaSS/com/trafficmon/Tests.class" afterPath="$PROJECT_DIR$/out/test/JavaSS/com/trafficmon/Tests.class" />
       <change beforePath="$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java" afterPath="$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java" />
-      <change beforePath="$PROJECT_DIR$/tests/com/trafficmon/Tests.java" afterPath="$PROJECT_DIR$/tests/com/trafficmon/Tests.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,11 +23,11 @@
       <file leaf-file-name="CongestionChargeSystem.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="135" column="24" lean-forward="false" selection-start-line="135" selection-start-column="24" selection-end-line="135" selection-end-column="24" />
+            <state relative-caret-position="312">
+              <caret line="80" column="64" lean-forward="true" selection-start-line="80" selection-start-column="64" selection-end-line="80" selection-end-column="64" />
               <folding>
-                <element signature="e#5261#5262#0" expanded="true" />
-                <element signature="e#5320#5321#0" expanded="true" />
+                <element signature="e#5283#5284#0" expanded="true" />
+                <element signature="e#5342#5343#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -39,8 +36,8 @@
       <file leaf-file-name="Tests.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/com/trafficmon/Tests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="28" column="45" lean-forward="true" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+            <state relative-caret-position="0">
+              <caret line="0" column="7" lean-forward="false" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -68,6 +65,13 @@
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>getC</find>
@@ -76,6 +80,7 @@
       <find>account</find>
       <find>minsB</find>
       <find>criticalT</find>
+      <find>criticalTime</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -91,6 +96,7 @@
       <list>
         <option value="$PROJECT_DIR$/src/com/trafficmon/Vehicle.java" />
         <option value="$PROJECT_DIR$/tests/com/trafficmon/Tests.java" />
+        <option value="$PROJECT_DIR$/src/com/trafficmon/Test.java" />
         <option value="$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java" />
       </list>
     </option>
@@ -413,7 +419,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1544030118782</updated>
-      <workItem from="1544030120240" duration="6416000" />
+      <workItem from="1544030120240" duration="8374000" />
     </task>
     <task id="LOCAL-00001" summary="new test">
       <created>1544030385273</created>
@@ -450,16 +456,17 @@
       <option name="project" value="LOCAL" />
       <updated>1544044884479</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="change calculation to hours">
+      <created>1544046937073</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1544046937073</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Tests - 2018.12.05 at 21h 45m 00s.xml">
-      <configuration name="Tests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Tests - 2018.12.05 at 21h 45m 26s.xml">
-      <configuration name="Tests" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="Tests - 2018.12.05 at 21h 47m 02s.xml">
       <configuration name="Tests" configurationId="JUnit" />
     </history-entry>
@@ -470,6 +477,12 @@
       <configuration name="Tests" configurationId="JUnit" />
     </history-entry>
     <history-entry file="Tests - 2018.12.05 at 21h 55m 06s.xml">
+      <configuration name="Tests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Tests - 2018.12.05 at 22h 41m 59s.xml">
+      <configuration name="Tests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Tests - 2018.12.05 at 22h 42m 51s.xml">
       <configuration name="Tests" configurationId="JUnit" />
     </history-entry>
     <history-entry file="Tests_checkTheMaths - 2018.12.05 at 21h 50m 10s.xml">
@@ -486,7 +499,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6416000" />
+    <option name="totallyTimeSpent" value="8374000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -501,7 +514,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298611" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -533,7 +546,8 @@
     <MESSAGE value="new tests" />
     <MESSAGE value="new implementation" />
     <MESSAGE value="more tests (I can't stop)" />
-    <option name="LAST_COMMIT_MESSAGE" value="more tests (I can't stop)" />
+    <MESSAGE value="change calculation to hours" />
+    <option name="LAST_COMMIT_MESSAGE" value="change calculation to hours" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -638,21 +652,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trafficmon/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="5" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tests/com/trafficmon/Tests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="28" column="45" lean-forward="true" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+        <state relative-caret-position="0">
+          <caret line="0" column="7" lean-forward="false" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="135" column="24" lean-forward="false" selection-start-line="135" selection-start-column="24" selection-end-line="135" selection-end-column="24" />
+        <state relative-caret-position="312">
+          <caret line="80" column="64" lean-forward="true" selection-start-line="80" selection-start-column="64" selection-end-line="80" selection-end-column="64" />
           <folding>
-            <element signature="e#5261#5262#0" expanded="true" />
-            <element signature="e#5320#5321#0" expanded="true" />
+            <element signature="e#5283#5284#0" expanded="true" />
+            <element signature="e#5342#5343#0" expanded="true" />
           </folding>
         </state>
       </provider>
