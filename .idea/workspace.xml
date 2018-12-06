@@ -4,10 +4,9 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f12daa0-1e33-4e91-b8c3-98188ac0a033" name="Default" comment="">
+    <list default="true" id="0f12daa0-1e33-4e91-b8c3-98188ac0a033" name="Default" comment="delete comments and changeTests so ChargeTest can work">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaSS/com/trafficmon/CongestionChargeSystem.class" afterPath="$PROJECT_DIR$/out/production/JavaSS/com/trafficmon/CongestionChargeSystem.class" />
-      <change beforePath="$PROJECT_DIR$/out/test/JavaSS/com/trafficmon/Tests.class" afterPath="$PROJECT_DIR$/out/test/JavaSS/com/trafficmon/Tests.class" />
       <change beforePath="$PROJECT_DIR$/src/com/trafficmon/ChargeTest.java" afterPath="$PROJECT_DIR$/src/com/trafficmon/ChargeTest.java" />
       <change beforePath="$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java" afterPath="$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java" />
       <change beforePath="$PROJECT_DIR$/tests/com/trafficmon/Tests.java" afterPath="$PROJECT_DIR$/tests/com/trafficmon/Tests.java" />
@@ -20,17 +19,24 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/JavaSS$Tests.coverage" NAME="Tests Coverage Results" MODIFIED="1544104317372" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.trafficmon.*</FILTER>
+    </SUITE>
+  </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="CongestionChargeSystem.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CongestionChargeSystem.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+            <state relative-caret-position="318">
+              <caret line="74" column="27" lean-forward="false" selection-start-line="74" selection-start-column="27" selection-end-line="74" selection-end-column="27" />
               <folding>
                 <element signature="method#vehicleLeavingZone#0;class#CongestionChargeSystem#0" expanded="false" />
-                <element signature="e#3090#3091#0" expanded="true" />
-                <element signature="e#3127#3128#0" expanded="true" />
+                <element signature="e#2407#2408#0" expanded="true" />
+                <element signature="e#2459#2460#0" expanded="true" />
+                <element signature="e#3193#3194#0" expanded="true" />
+                <element signature="e#3230#3231#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -52,24 +58,24 @@
       <file leaf-file-name="ChargeTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/trafficmon/ChargeTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1065">
-              <caret line="71" column="23" lean-forward="false" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
+            <state relative-caret-position="764">
+              <caret line="73" column="1" lean-forward="false" selection-start-line="73" selection-start-column="1" selection-end-line="73" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#575#576#0" expanded="true" />
                 <element signature="e#617#618#0" expanded="true" />
-                <element signature="e#2426#2427#0" expanded="true" />
-                <element signature="e#2463#2464#0" expanded="true" />
+                <element signature="e#2514#2515#0" expanded="true" />
+                <element signature="e#2551#2552#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tests.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Tests.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/com/trafficmon/Tests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="205" column="0" lean-forward="false" selection-start-line="205" selection-start-column="0" selection-end-line="205" selection-end-column="0" />
+            <state relative-caret-position="2400">
+              <caret line="432" column="36" lean-forward="true" selection-start-line="432" selection-start-column="36" selection-end-line="432" selection-end-column="36" />
               <folding>
                 <element signature="method#checksGetRegistration#0;class#Tests#0" expanded="false" />
                 <element signature="method#checkVehicleEquals#0;class#Tests#0" expanded="false" />
@@ -81,9 +87,6 @@
                 <element signature="method#checksUnregisteredVehicleException#0;class#Tests#0" expanded="false" />
                 <element signature="method#checkTheMaths#0;class#Tests#0" expanded="false" />
                 <element signature="method#InsufficientCreditException#0;class#Tests#0" expanded="false" />
-                <element signature="method#checkOrderingIsFalse#0;class#Tests#0" expanded="false" />
-                <element signature="method#checkOrderingIsTrue#0;class#Tests#0" expanded="false" />
-                <element signature="method#checkOrderingIsFalseWhenStartWithExit#0;class#Tests#0" expanded="false" />
                 <element signature="method#calculatesChargeForEntryBeforeTwoLessThanFourHours#0;class#Tests#0" expanded="false" />
                 <element signature="method#calculatesChargeForLongerThanFourHours#0;class#Tests#0" expanded="false" />
                 <element signature="method#calculatesChargeForEntryAfterTwoLessThanFourHours#0;class#Tests#0" expanded="false" />
@@ -98,11 +101,10 @@
                 <element signature="method#checkMultipleEntryAfterFourWithMoreThanFourBetween#0;class#Tests#0" expanded="false" />
                 <element signature="method#checkMultipleEntryBeforeAndAfterTwo#0;class#Tests#0" expanded="false" />
                 <element signature="method#checkEntryTwoCars#0;class#Tests#0" expanded="false" />
-                <element signature="method#checkEntryTwoCarsMultipleEntry#0;class#Tests#0" expanded="false" />
-                <element signature="e#17576#17577#0" expanded="true" />
-                <element signature="e#17610#17611#0" expanded="true" />
-                <element signature="e#17675#17676#0" expanded="true" />
-                <element signature="e#17731#17732#0" expanded="true" />
+                <element signature="e#17858#17859#0" expanded="true" />
+                <element signature="e#17892#17893#0" expanded="true" />
+                <element signature="e#17957#17958#0" expanded="true" />
+                <element signature="e#18013#18014#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -182,6 +184,7 @@
       <find>hours</find>
       <find>chargeTe</find>
       <find>getter</find>
+      <find>prev</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -206,8 +209,8 @@
         <option value="$PROJECT_DIR$/src/com/trafficmon/ZoneBoundaryCrossing.java" />
         <option value="$PROJECT_DIR$/src/com/trafficmon/EntryEvent.java" />
         <option value="$PROJECT_DIR$/src/com/trafficmon/ChargeTest.java" />
-        <option value="$PROJECT_DIR$/tests/com/trafficmon/Tests.java" />
         <option value="$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java" />
+        <option value="$PROJECT_DIR$/tests/com/trafficmon/Tests.java" />
       </list>
     </option>
   </component>
@@ -242,6 +245,24 @@
             <path>
               <item name="JavaSS" type="b2602c69:ProjectViewProjectNode" />
               <item name="JavaSS" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="JavaSS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="JavaSS" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="JavaSS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="JavaSS" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="trafficmon-externals.jar" type="ab9368bb:PsiFileNode" />
+            </path>
+            <path>
+              <item name="JavaSS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="JavaSS" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="trafficmon-externals.jar" type="ab9368bb:PsiFileNode" />
+              <item name="trafficmon" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="JavaSS" type="b2602c69:ProjectViewProjectNode" />
@@ -298,7 +319,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.Tests.checksTimer">
+  <component name="RunManager" selected="JUnit.Tests">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -370,31 +391,6 @@
       <envs />
       <patterns />
     </configuration>
-    <configuration name="Tests.calculatesChargeForLongerThanFourHours" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.trafficmon.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="JavaSS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.trafficmon" />
-      <option name="MAIN_CLASS_NAME" value="com.trafficmon.Tests" />
-      <option name="METHOD_NAME" value="calculatesChargeForLongerThanFourHours" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-    </configuration>
     <configuration name="Tests.checkTheMaths" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -408,6 +404,31 @@
       <option name="PACKAGE_NAME" value="com.trafficmon" />
       <option name="MAIN_CLASS_NAME" value="com.trafficmon.Tests" />
       <option name="METHOD_NAME" value="checkTheMaths" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="Tests.checksIsRegistered" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.trafficmon.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="JavaSS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.trafficmon" />
+      <option name="MAIN_CLASS_NAME" value="com.trafficmon.Tests" />
+      <option name="METHOD_NAME" value="checksIsRegistered" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -507,18 +528,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="JUnit.Tests" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.Tests.calculatesChargeForLongerThanFourHours" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.Tests.calculatesChargeForEntryBeforeTwoLessThanFourHours" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.Tests.checkTheMaths" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.Tests.checksTimer" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.Tests.calculatesChargeForEntryBeforeTwoLessThanFourHours" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.Tests.checkTheMaths" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.Tests.checksTimer" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.Tests.checksIsRegistered" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.Tests.checksTimer" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.Tests.checkTheMaths" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.Tests" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.Tests.calculatesChargeForEntryBeforeTwoLessThanFourHours" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.Tests.calculatesChargeForLongerThanFourHours" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.Tests" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.Tests.checksIsRegistered" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.Tests.checksTimer" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.Tests.checkTheMaths" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.Tests.calculatesChargeForEntryBeforeTwoLessThanFourHours" />
       </list>
     </recent_temporary>
   </component>
@@ -535,7 +556,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1544092828635</updated>
-      <workItem from="1544092829903" duration="8459000" />
+      <workItem from="1544092829903" duration="9953000" />
     </task>
     <task id="LOCAL-00001" summary="add compareTime">
       <created>1544093013724</created>
@@ -607,43 +628,50 @@
       <option name="project" value="LOCAL" />
       <updated>1544102944761</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="delete comments and changeTests so ChargeTest can work">
+      <created>1544103273228</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1544103273228</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Tests - 2018.12.06 at 13h 09m 32s.xml">
+    <history-entry file="Tests - 2018.12.06 at 13h 35m 26s.xml">
       <configuration name="Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests - 2018.12.06 at 13h 21m 44s.xml">
+    <history-entry file="Tests - 2018.12.06 at 13h 38m 07s.xml">
       <configuration name="Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests - 2018.12.06 at 13h 31m 15s.xml">
+    <history-entry file="Tests - 2018.12.06 at 13h 43m 08s.xml">
       <configuration name="Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests_calculatesChargeForEntryAfterTwoLessThanFourHours - 2018.12.06 at 13h 07m 58s.xml">
-      <configuration name="Tests.calculatesChargeForEntryAfterTwoLessThanFourHours" configurationId="JUnit" />
+    <history-entry file="Tests - 2018.12.06 at 13h 44m 03s.xml">
+      <configuration name="Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests_calculatesChargeForEntryAfterTwoLessThanFourHours - 2018.12.06 at 13h 08m 03s.xml">
-      <configuration name="Tests.calculatesChargeForEntryAfterTwoLessThanFourHours" configurationId="JUnit" />
+    <history-entry file="Tests - 2018.12.06 at 13h 50m 30s.xml">
+      <configuration name="Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests_calculatesChargeForEntryBeforeTwoLessThanFourHours - 2018.12.06 at 13h 09m 23s.xml">
-      <configuration name="Tests.calculatesChargeForEntryBeforeTwoLessThanFourHours" configurationId="JUnit" />
+    <history-entry file="Tests - 2018.12.06 at 13h 50m 42s.xml">
+      <configuration name="Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests_calculatesChargeForLongerThanFourHours - 2018.12.06 at 13h 08m 52s.xml">
-      <configuration name="Tests.calculatesChargeForLongerThanFourHours" configurationId="JUnit" />
+    <history-entry file="Tests - 2018.12.06 at 13h 52m 03s.xml">
+      <configuration name="Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests_calculatesChargeForLongerThanFourHours - 2018.12.06 at 13h 08m 56s.xml">
-      <configuration name="Tests.calculatesChargeForLongerThanFourHours" configurationId="JUnit" />
+    <history-entry file="Tests - 2018.12.06 at 13h 58m 24s.xml">
+      <configuration name="Tests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Tests_checkTheMaths - 2018.12.06 at 13h 32m 00s.xml">
-      <configuration name="Tests.checkTheMaths" configurationId="JUnit" />
+    <history-entry file="Tests_checksIsRegistered - 2018.12.06 at 13h 50m 12s.xml">
+      <configuration name="Tests.checksIsRegistered" configurationId="JUnit" />
     </history-entry>
     <history-entry file="Tests_checksTimer - 2018.12.06 at 13h 32m 34s.xml">
       <configuration name="Tests.checksTimer" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8459000" />
+    <option name="totallyTimeSpent" value="9953000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -658,11 +686,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298611" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -677,6 +706,36 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298611" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -691,7 +750,8 @@
     <MESSAGE value="fix implementations" />
     <MESSAGE value="fix tests" />
     <MESSAGE value="try out ChargeTest" />
-    <option name="LAST_COMMIT_MESSAGE" value="try out ChargeTest" />
+    <MESSAGE value="delete comments and changeTests so ChargeTest can work" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete comments and changeTests so ChargeTest can work" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -751,6 +811,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/trafficmon-externals.jar!/com/trafficmon/OperationsTeam.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trafficmon/ChargeTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="764">
+          <caret line="73" column="1" lean-forward="false" selection-start-line="73" selection-start-column="1" selection-end-line="73" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#575#576#0" expanded="true" />
+            <element signature="e#617#618#0" expanded="true" />
+            <element signature="e#2514#2515#0" expanded="true" />
+            <element signature="e#2551#2552#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/trafficmon/SystemClock.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -762,10 +844,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="74" column="27" lean-forward="false" selection-start-line="74" selection-start-column="27" selection-end-line="74" selection-end-column="27" />
+          <folding>
+            <element signature="method#vehicleLeavingZone#0;class#CongestionChargeSystem#0" expanded="false" />
+            <element signature="e#2407#2408#0" expanded="true" />
+            <element signature="e#2459#2460#0" expanded="true" />
+            <element signature="e#3193#3194#0" expanded="true" />
+            <element signature="e#3230#3231#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tests/com/trafficmon/Tests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="205" column="0" lean-forward="false" selection-start-line="205" selection-start-column="0" selection-end-line="205" selection-end-column="0" />
+        <state relative-caret-position="2400">
+          <caret line="432" column="36" lean-forward="true" selection-start-line="432" selection-start-column="36" selection-end-line="432" selection-end-column="36" />
           <folding>
             <element signature="method#checksGetRegistration#0;class#Tests#0" expanded="false" />
             <element signature="method#checkVehicleEquals#0;class#Tests#0" expanded="false" />
@@ -777,9 +873,6 @@
             <element signature="method#checksUnregisteredVehicleException#0;class#Tests#0" expanded="false" />
             <element signature="method#checkTheMaths#0;class#Tests#0" expanded="false" />
             <element signature="method#InsufficientCreditException#0;class#Tests#0" expanded="false" />
-            <element signature="method#checkOrderingIsFalse#0;class#Tests#0" expanded="false" />
-            <element signature="method#checkOrderingIsTrue#0;class#Tests#0" expanded="false" />
-            <element signature="method#checkOrderingIsFalseWhenStartWithExit#0;class#Tests#0" expanded="false" />
             <element signature="method#calculatesChargeForEntryBeforeTwoLessThanFourHours#0;class#Tests#0" expanded="false" />
             <element signature="method#calculatesChargeForLongerThanFourHours#0;class#Tests#0" expanded="false" />
             <element signature="method#calculatesChargeForEntryAfterTwoLessThanFourHours#0;class#Tests#0" expanded="false" />
@@ -794,37 +887,10 @@
             <element signature="method#checkMultipleEntryAfterFourWithMoreThanFourBetween#0;class#Tests#0" expanded="false" />
             <element signature="method#checkMultipleEntryBeforeAndAfterTwo#0;class#Tests#0" expanded="false" />
             <element signature="method#checkEntryTwoCars#0;class#Tests#0" expanded="false" />
-            <element signature="method#checkEntryTwoCarsMultipleEntry#0;class#Tests#0" expanded="false" />
-            <element signature="e#17576#17577#0" expanded="true" />
-            <element signature="e#17610#17611#0" expanded="true" />
-            <element signature="e#17675#17676#0" expanded="true" />
-            <element signature="e#17731#17732#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trafficmon/ChargeTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1065">
-          <caret line="71" column="23" lean-forward="false" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#575#576#0" expanded="true" />
-            <element signature="e#617#618#0" expanded="true" />
-            <element signature="e#2426#2427#0" expanded="true" />
-            <element signature="e#2463#2464#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding>
-            <element signature="method#vehicleLeavingZone#0;class#CongestionChargeSystem#0" expanded="false" />
-            <element signature="e#3090#3091#0" expanded="true" />
-            <element signature="e#3127#3128#0" expanded="true" />
+            <element signature="e#17858#17859#0" expanded="true" />
+            <element signature="e#17892#17893#0" expanded="true" />
+            <element signature="e#17957#17958#0" expanded="true" />
+            <element signature="e#18013#18014#0" expanded="true" />
           </folding>
         </state>
       </provider>

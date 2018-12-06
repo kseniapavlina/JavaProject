@@ -24,7 +24,6 @@ public class ChargeTest {
         return charge;
     }
 
-
     private void calculateChargeForTimeInZone(List<ZoneBoundaryCrossing> crossings){
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
         ArrayList<LocalTime> timesToCharge = new ArrayList<>();
@@ -32,22 +31,23 @@ public class ChargeTest {
         timesToCharge.add(lastEvent.timestamp());
 
         if (timer(crossings) < HOUR_BETWEEN){
-            for (ZoneBoundaryCrossing crossing : crossings.subList(2, crossings.size())){
-                if (crossing instanceof EntryEvent){
-                    if (hoursBetween(criticalTime, crossing.timestamp()) > HOUR_BETWEEN){
-                        int i = crossings.indexOf(crossing);
-                        criticalTime = crossings.get(i).timestamp();
-                        timesToCharge.add(crossing.timestamp());
-                    }
-                }
-            }
-            for (LocalTime time : timesToCharge){
-                if (compareTime(time, TIME_BOUNDARY) <= 0) charge = charge.add(UPPER_FEE);
-                else charge = charge.add(LOWER_FEE);
-            }
+            chargeForShortTime(crossings, timesToCharge, criticalTime);
         }
         else charge = LONG_FEE;
-//        return charge;
+    }
+
+    private void chargeForShortTime(List<ZoneBoundaryCrossing> crossings, ArrayList<LocalTime> timesToCharge, LocalTime criticalTime) {
+        for (ZoneBoundaryCrossing crossing : crossings.subList(2, crossings.size())){
+            if (crossing instanceof EntryEvent && hoursBetween(criticalTime, crossing.timestamp()) > HOUR_BETWEEN){
+                int i = crossings.indexOf(crossing);
+                criticalTime = crossings.get(i).timestamp();
+                timesToCharge.add(crossing.timestamp());
+            }
+        }
+        for (LocalTime time : timesToCharge){
+            if (compareTime(time, TIME_BOUNDARY) <= 0) charge = charge.add(UPPER_FEE);
+            else charge = charge.add(LOWER_FEE);
+        }
     }
 
 

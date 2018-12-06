@@ -133,8 +133,7 @@ public class Tests {
         system.vehicleEnteringZone(vehicleOne);
         Thread.sleep(1000);
         system.vehicleEnteringZone(vehicleOne);
-        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
-        crossings.addAll(system.getEventLog());
+        List<ZoneBoundaryCrossing> crossings = new ArrayList<>(system.getEventLog());
         assertEquals(system.getOrdering(crossings), false);
     }
 
@@ -143,8 +142,7 @@ public class Tests {
         system.vehicleEnteringZone(vehicleOne);
         Thread.sleep(1000);
         system.vehicleLeavingZone(vehicleOne);
-        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
-        crossings.addAll(system.getEventLog());
+        List<ZoneBoundaryCrossing> crossings = new ArrayList<>(system.getEventLog());
         assertEquals(system.getOrdering(crossings), true);
     }
 
@@ -153,8 +151,7 @@ public class Tests {
         system.vehicleLeavingZone(vehicleOne);
         Thread.sleep(1000);
         system.vehicleEnteringZone(vehicleOne);
-        List<ZoneBoundaryCrossing> crossings = new ArrayList<>();
-        crossings.addAll(system.getEventLog());
+        List<ZoneBoundaryCrossing> crossings = new ArrayList<>(system.getEventLog());
         assertEquals(system.getOrdering(crossings), false);
     }
 
@@ -429,6 +426,15 @@ public class Tests {
         assertEquals(v2, answer2);
     }
 
+    @Test
+    public void checksIsRegistered(){
+        cc.currentTimeIs(13, 0 , 0);
+        system.getEventLog().add(new EntryEvent(vehicleOne, cc));
+        cc.currentTimeIs(14, 0 , 0);
+        system.getEventLog().add(new ExitEvent(vehicleOne, cc));
+        assertTrue(system.isRegistered(vehicleOne));
+        assertFalse(system.isRegistered(vehicleTwo));
+    }
 
     private class ControlableClock implements Clock {
         private LocalTime now;

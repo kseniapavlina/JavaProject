@@ -72,6 +72,10 @@ public class CongestionChargeSystem {
         return false;
     }
 
+    public boolean isRegistered(Vehicle vehicle){
+        return previouslyRegistered(vehicle);
+    }
+
     private boolean checkOrderingOf(List<ZoneBoundaryCrossing> crossings) {
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
         if (lastEvent instanceof  ExitEvent) return false;
