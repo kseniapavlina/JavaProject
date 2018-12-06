@@ -19,8 +19,6 @@ import java.math.MathContext;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.math.*;
-import java.util.Map;
 
 public class Tests {
 
@@ -28,7 +26,7 @@ public class Tests {
     Vehicle vehicleTwo = Vehicle.withRegistration("B123 XYZ");
     Vehicle vehicleThree = Vehicle.withRegistration("J091 4PY");
     Vehicle vehicleOneCopy = Vehicle.withRegistration("A123 XYZ");
-    private ControlableClock cc = new ControlableClock();
+    private ControllableClock cc = new ControllableClock();
 
     private CongestionChargeSystem system = new CongestionChargeSystem();
 
@@ -436,7 +434,7 @@ public class Tests {
         assertFalse(system.isRegistered(vehicleTwo));
     }
 
-    private class ControlableClock implements Clock {
+    private class ControllableClock implements Clock {
         private LocalTime now;
 
         @Override
