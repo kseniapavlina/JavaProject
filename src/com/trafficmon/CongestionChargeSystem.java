@@ -38,7 +38,7 @@ public class CongestionChargeSystem {
             Vehicle vehicle = vehicleCrossings.getKey();
             List<ZoneBoundaryCrossing> crossings = vehicleCrossings.getValue();
 
-            if (!new Register().checkOrderingOf(crossings)) {
+            if (!new Register().getOrdering(crossings)) {
                 OperationsTeam.getInstance().triggerInvestigationInto(vehicle);
             } else {
                 BigDecimal charge = new ChargeCalculator().getCharge(crossings);

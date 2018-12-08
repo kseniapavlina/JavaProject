@@ -36,12 +36,13 @@ public class Tests {
     private Register register = new Register();
 
     @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Rule
     public JUnitRuleMockery context = new JUnitRuleMockery();
 
     private Clock clock = context.mock(Clock.class);
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     private void eventLogEntry(ZoneBoundaryCrossing crossing){
         congestionChargeSystem.getEventLog().add(crossing);

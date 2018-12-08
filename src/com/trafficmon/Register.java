@@ -17,7 +17,7 @@ public class Register {
         return previouslyRegistered(vehicle, eventLog);
     }
 
-    boolean checkOrderingOf(List<ZoneBoundaryCrossing> crossings) {
+    private boolean checkOrderingOf(List<ZoneBoundaryCrossing> crossings) {
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
         if (lastEvent instanceof ExitEvent) return false;
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
