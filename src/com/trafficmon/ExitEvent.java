@@ -1,7 +1,5 @@
 package com.trafficmon;
 
-import java.time.LocalTime;
-
 public class ExitEvent extends ZoneBoundaryCrossing {
     public ExitEvent(Vehicle vehicle) {
         super(vehicle);

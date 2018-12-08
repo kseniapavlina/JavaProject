@@ -2,7 +2,6 @@ package com.trafficmon;
 
 import java.time.LocalTime;
 
-// why is this abstract? cant you just make an instance of this?
 public abstract class ZoneBoundaryCrossing {
 
     private final Vehicle vehicle;
