@@ -14,7 +14,7 @@ public class CongestionChargeSystem {
     }
 
     public void vehicleLeavingZone(Vehicle vehicle) {
-        if (!new Register().previouslyRegistered(vehicle, eventLog)) {
+        if (!new Register().isRegistered(vehicle, eventLog)) {
             return;
         }
         eventLog.add(new ExitEvent(vehicle));

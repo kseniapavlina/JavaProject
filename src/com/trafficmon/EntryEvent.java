@@ -7,4 +7,5 @@ public class EntryEvent extends ZoneBoundaryCrossing {
     public EntryEvent(Vehicle vehicleRegistration, Clock clock) {
         super(vehicleRegistration, clock);
     }
+
 }
