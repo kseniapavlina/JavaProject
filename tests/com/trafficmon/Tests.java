@@ -8,6 +8,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
@@ -37,6 +38,8 @@ public class Tests {
     @Rule
     public JUnitRuleMockery context = new JUnitRuleMockery();
 
+    private Clock clock = context.mock(Clock.class);
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -47,6 +50,19 @@ public class Tests {
     private ControllableClock getControllableClock(int hr, int min, int sec){
         controllableClock.currentTimeIs(hr, min, sec);
         return controllableClock;
+    }
+
+    private class ControllableClock implements Clock {
+        private LocalTime now;
+
+        @Override
+        public LocalTime now() {
+            return now;
+        }
+
+        private void currentTimeIs(int hour, int min, int sec) {
+            now = LocalTime.of(hour,min,sec);
+        }
     }
 
     private BigDecimal getVehicleCharge(Vehicle vehicle) {
@@ -177,15 +193,6 @@ public class Tests {
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(13, 0, 0)));
         assertEquals(register.getOrdering(congestionChargeSystem.getEventLog()), false);
     }
-
-//    @Test
-//    public void bullshit(){
-//        eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(12, 0, 0)));
-//        eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(13, 0, 0)));
-//
-//        congestionChargeSystem.calculateCharges();
-//
-//    }
 
     @Test
     public void calculatesChargeForEntryBeforeTwoLessThanFourHours() {
@@ -375,16 +382,22 @@ public class Tests {
         assertFalse(register.isRegistered(vehicleTwo, e));
     }
 
-    private class ControllableClock implements Clock {
-        private LocalTime now;
+    @Test
+    public void checkClock() {
+        context.checking(new Expectations() {{
+            exactly(1).of(clock).now();
+        }});
+        eventLogEntry(new EntryEvent(vehicleOne, clock));
 
-        @Override
-        public LocalTime now() {
-            return now;
-        }
-
-        private void currentTimeIs(int hour, int min, int sec) {
-            now = LocalTime.of(hour,min,sec);
-        }
     }
+
+    @Test
+    public void checkClockNotUsed() {
+        context.checking(new Expectations() {{
+            exactly(0).of(clock).now();
+        }});
+        eventLogEntry(new EntryEvent(vehicleOne));
+
+    }
+
 }
