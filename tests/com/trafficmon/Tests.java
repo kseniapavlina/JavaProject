@@ -33,7 +33,6 @@ public class Tests {
     private ControllableClock controllableClock = new ControllableClock();
 
     private CongestionChargeSystem congestionChargeSystem = new CongestionChargeSystem();
-    private Register register = new Register();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -45,7 +44,11 @@ public class Tests {
 
 
     private void eventLogEntry(ZoneBoundaryCrossing crossing){
-        congestionChargeSystem.getEventLog().add(crossing);
+        Vehicle v = crossing.getVehicle();
+        if(!congestionChargeSystem.getVehicleRegistration().containsKey(v)){
+            congestionChargeSystem.getVehicleRegistration().put(v, new Register());
+        }
+        congestionChargeSystem.getVehicleRegistration().get(v).addToList(crossing);
     }
 
     private ControllableClock getControllableClock(int hr, int min, int sec){
@@ -69,20 +72,20 @@ public class Tests {
     private BigDecimal getVehicleCharge(Vehicle vehicle) {
         Field field = null;
         try {
-            field = CongestionChargeSystem.class.getDeclaredField("vehicleCharges");
+            field = CongestionChargeSystem.class.getDeclaredField("vehicleRegistration");
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
         assert field != null;
         field.setAccessible(true);
-        HashMap<Vehicle, BigDecimal> vehicleCharges = null;
+        HashMap<Vehicle, Register> vehicleRegistration = null;
         try {
-            vehicleCharges = (HashMap<Vehicle, BigDecimal>)field.get(congestionChargeSystem);
+            vehicleRegistration = (HashMap<Vehicle, Register>)field.get(congestionChargeSystem);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        assert vehicleCharges != null;
-        BigDecimal vehicleCharge = vehicleCharges.get(vehicle);
+        assert vehicleRegistration != null;
+        BigDecimal vehicleCharge = vehicleRegistration.get(vehicle).getCharge();
         return vehicleCharge.round(new MathContext(2));
     }
 
@@ -115,8 +118,8 @@ public class Tests {
     public void assertExitTimeStamp(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(10, 0, 0)));
-        ZoneBoundaryCrossing crossingByOne = congestionChargeSystem.getEventLog().get(0);
-        ZoneBoundaryCrossing crossingByTwo = congestionChargeSystem.getEventLog().get(1);
+        ZoneBoundaryCrossing crossingByOne = congestionChargeSystem.getCompleteEventLog().get(0);
+        ZoneBoundaryCrossing crossingByTwo = congestionChargeSystem.getCompleteEventLog().get(1);
         assertThat(crossingByTwo.timestamp(), greaterThan(crossingByOne.timestamp()));
     }
 
@@ -124,9 +127,9 @@ public class Tests {
     public void assertEnteringTime(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(10, 0, 0)));
-        LocalTime timestamp = congestionChargeSystem.getEventLog().get(0).timestamp();
+        LocalTime timestamp = congestionChargeSystem.getCompleteEventLog().get(0).timestamp();
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(12, 0, 0)));
-        ZoneBoundaryCrossing crossing = congestionChargeSystem.getEventLog().get(2);
+        ZoneBoundaryCrossing crossing = congestionChargeSystem.getCompleteEventLog().get(2);
         assertThat(crossing.timestamp(), greaterThan(timestamp));
 
     }
@@ -134,10 +137,10 @@ public class Tests {
     @Test
     public void isLeavingRegisteredInEventLog(){
         congestionChargeSystem.vehicleLeavingZone(vehicleOne);
-        assertThat(congestionChargeSystem.getEventLog().size(), is(0));
+        assertThat(congestionChargeSystem.getCompleteEventLog().size(), is(0));
         congestionChargeSystem.vehicleEnteringZone(vehicleOne);
         congestionChargeSystem.vehicleLeavingZone(vehicleOne);
-        assertThat(congestionChargeSystem.getEventLog().size(), is(2));
+        assertThat(congestionChargeSystem.getCompleteEventLog().size(), is(2));
     }
 
     @Test
@@ -145,7 +148,7 @@ public class Tests {
         congestionChargeSystem.vehicleLeavingZone(vehicleTwo);
         congestionChargeSystem.vehicleEnteringZone(vehicleOne);
         congestionChargeSystem.vehicleLeavingZone(vehicleOne);
-        ZoneBoundaryCrossing z = congestionChargeSystem.getEventLog().get(0);
+        ZoneBoundaryCrossing z = congestionChargeSystem.getCompleteEventLog().get(0);
         assertThat(z.getVehicle(), is(vehicleOne));
     }
 
@@ -177,22 +180,23 @@ public class Tests {
     public void checkOrderingIsFalse(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(10, 0, 0)));
-        List<ZoneBoundaryCrossing> crossings = new ArrayList<>(congestionChargeSystem.getEventLog());
-        assertEquals(register.getOrdering(crossings), false);
+        assertEquals(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getOrdering(), false);
     }
 
     @Test
     public void checkOrderingIsTrue(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(10, 0, 0)));
-        assertEquals(register.getOrdering(congestionChargeSystem.getEventLog()), true);
+        assertEquals(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getOrdering(), true);
+
     }
 
     @Test
     public void checkOrderingIsFalseWhenStartWithExit(){
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(12, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(13, 0, 0)));
-        assertEquals(register.getOrdering(congestionChargeSystem.getEventLog()), false);
+        assertEquals(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getOrdering(), false);
+
     }
 
     @Test
@@ -233,7 +237,7 @@ public class Tests {
         Method method = chargeCalculator.getClass().getDeclaredMethod("timer", List.class);
         method.setAccessible(true);
         assertEquals(
-                method.invoke(chargeCalculator, congestionChargeSystem.getEventLog()),
+                method.invoke(chargeCalculator, congestionChargeSystem.getCompleteEventLog()),
                 4.5
         );
     }
@@ -258,7 +262,8 @@ public class Tests {
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(12, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(14, 30, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(16, 0, 0)));
-        assertFalse(register.getOrdering(congestionChargeSystem.getEventLog()));
+        assertFalse(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getOrdering());
+
     }
 
     @Test
@@ -267,7 +272,7 @@ public class Tests {
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(12, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(14, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(16, 0, 0)));
-        assertFalse((register.getOrdering(congestionChargeSystem.getEventLog())));
+        assertFalse(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getOrdering());
     }
 
     @Test
@@ -291,7 +296,7 @@ public class Tests {
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(13, 0, 0)));
         congestionChargeSystem.calculateCharges();
         BigDecimal answer = new BigDecimal("6");
-        assertEquals(getVehicleCharge(vehicleOne), answer);
+        assertEquals(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getCharge(), answer);
     }
 
     @Test
@@ -378,9 +383,8 @@ public class Tests {
     public void checksIsRegistered(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(13, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(14, 0, 0)));
-        List<ZoneBoundaryCrossing> e = congestionChargeSystem.getEventLog();
-        assertTrue(register.isRegistered(vehicleOne, e));
-        assertFalse(register.isRegistered(vehicleTwo, e));
+        assertTrue(congestionChargeSystem.isVehicleRegistered(vehicleOne));
+        assertFalse(congestionChargeSystem.isVehicleRegistered(vehicleTwo));
     }
 
     @Test

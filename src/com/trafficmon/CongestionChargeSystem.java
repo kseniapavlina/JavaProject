@@ -5,45 +5,50 @@ import java.util.*;
 
 public class CongestionChargeSystem {
 
-    private Map<Vehicle, BigDecimal> vehicleCharges = new HashMap<>();
+    private Map<Vehicle, Register> vehicleRegistration = new HashMap<>();
 
-    private final List<ZoneBoundaryCrossing> eventLog = new ArrayList<>();
+    public Map<Vehicle, Register> getVehicleRegistration() {
+        return vehicleRegistration;
+    }
 
     public void vehicleEnteringZone(Vehicle vehicle) {
-        eventLog.add(new EntryEvent(vehicle));
+        if(!isVehicleRegistered(vehicle)) {
+            vehicleRegistration.put(vehicle, new Register());
+        }
+        vehicleRegistration.get(vehicle).addEntryToList(vehicle);
     }
 
     public void vehicleLeavingZone(Vehicle vehicle) {
-        if (!new Register().isRegistered(vehicle, eventLog)) {
-            return;
+        if(isVehicleRegistered(vehicle)) {
+            vehicleRegistration.get(vehicle).addExitToList(vehicle);
         }
-        eventLog.add(new ExitEvent(vehicle));
     }
 
-    public List<ZoneBoundaryCrossing> getEventLog(){
-        return eventLog;
+    public List<ZoneBoundaryCrossing> getCompleteEventLog(){
+        List<ZoneBoundaryCrossing> completeEventLog = new ArrayList<>();
+
+        for(Map.Entry<Vehicle, Register> vehicleCrossings : vehicleRegistration.entrySet()){
+            List<ZoneBoundaryCrossing> crossings = vehicleCrossings.getValue().getEventLog();
+            completeEventLog.addAll(crossings);
+        }
+
+        return completeEventLog;
+    }
+
+    public boolean isVehicleRegistered(Vehicle vehicle){
+        return vehicleRegistration.containsKey(vehicle);
     }
 
     public void calculateCharges() {
-        Map<Vehicle, List<ZoneBoundaryCrossing>> crossingsByVehicle = new HashMap<>();
-
-        for (ZoneBoundaryCrossing crossing : eventLog) {
-            if (!crossingsByVehicle.containsKey(crossing.getVehicle())) {
-                crossingsByVehicle.put(crossing.getVehicle(), new ArrayList<>());
-            }
-            crossingsByVehicle.get(crossing.getVehicle()).add(crossing);
-        }
-
-        for (Map.Entry<Vehicle, List<ZoneBoundaryCrossing>> vehicleCrossings : crossingsByVehicle.entrySet()) {
+        for (Map.Entry<Vehicle, Register> vehicleCrossings : vehicleRegistration.entrySet()) {
             Vehicle vehicle = vehicleCrossings.getKey();
-            List<ZoneBoundaryCrossing> crossings = vehicleCrossings.getValue();
+            List<ZoneBoundaryCrossing> crossings = vehicleCrossings.getValue().getEventLog();
 
-            if (!new Register().getOrdering(crossings)) {
+            if (!vehicleCrossings.getValue().getOrdering()) {
                 OperationsTeam.getInstance().triggerInvestigationInto(vehicle);
             } else {
                 BigDecimal charge = new ChargeCalculator().getCharge(crossings);
-
-                vehicleCharges.put(vehicle, charge);
+                vehicleRegistration.get(vehicle).setCharge(charge);
                 try {
                     RegisteredCustomerAccountsService.getInstance().accountFor(vehicle).deduct(charge);
                 } catch (InsufficientCreditException | AccountNotRegisteredException ice) {
@@ -52,4 +57,5 @@ public class CongestionChargeSystem {
             }
         }
     }
+
 }
