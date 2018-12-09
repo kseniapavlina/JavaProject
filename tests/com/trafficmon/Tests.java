@@ -8,20 +8,18 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+import junit.framework.TestCase;
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Tests {
@@ -69,23 +67,12 @@ public class Tests {
         }
     }
 
+    private boolean getOrdering(Vehicle vehicle){
+        return congestionChargeSystem.getVehicleRegistration().get(vehicle).getOrdering();
+    }
+
     private BigDecimal getVehicleCharge(Vehicle vehicle) {
-        Field field = null;
-        try {
-            field = CongestionChargeSystem.class.getDeclaredField("vehicleRegistration");
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
-        assert field != null;
-        field.setAccessible(true);
-        HashMap<Vehicle, Register> vehicleRegistration = null;
-        try {
-            vehicleRegistration = (HashMap<Vehicle, Register>)field.get(congestionChargeSystem);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        assert vehicleRegistration != null;
-        BigDecimal vehicleCharge = vehicleRegistration.get(vehicle).getCharge();
+        BigDecimal vehicleCharge = congestionChargeSystem.getVehicleRegistration().get(vehicle).getCharge();
         return vehicleCharge.round(new MathContext(2));
     }
 
@@ -180,14 +167,14 @@ public class Tests {
     public void checkOrderingIsFalse(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(10, 0, 0)));
-        assertEquals(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getOrdering(), false);
+        TestCase.assertFalse(getOrdering(vehicleOne));
     }
 
     @Test
     public void checkOrderingIsTrue(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(10, 0, 0)));
-        assertEquals(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getOrdering(), true);
+        TestCase.assertTrue(getOrdering(vehicleOne));
 
     }
 
@@ -195,7 +182,7 @@ public class Tests {
     public void checkOrderingIsFalseWhenStartWithExit(){
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(12, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(13, 0, 0)));
-        assertEquals(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getOrdering(), false);
+        TestCase.assertFalse(getOrdering(vehicleOne));
 
     }
 
@@ -262,7 +249,7 @@ public class Tests {
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(12, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(14, 30, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(16, 0, 0)));
-        assertFalse(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getOrdering());
+        assertFalse(getOrdering(vehicleOne));
 
     }
 
@@ -272,7 +259,7 @@ public class Tests {
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(12, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(14, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(16, 0, 0)));
-        assertFalse(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getOrdering());
+        assertFalse(getOrdering(vehicleOne));
     }
 
     @Test
@@ -296,7 +283,7 @@ public class Tests {
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(13, 0, 0)));
         congestionChargeSystem.calculateCharges();
         BigDecimal answer = new BigDecimal("6");
-        assertEquals(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getCharge(), answer);
+        assertEquals(getVehicleCharge(vehicleOne), answer);
     }
 
     @Test
