@@ -1,8 +1,28 @@
 package com.trafficmon;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Register {
+    private final List<ZoneBoundaryCrossing> eventLog = new ArrayList<>();
+    private BigDecimal charge;
+
+    public void setCharge(BigDecimal charge) {
+        this.charge = charge;
+    }
+
+    public BigDecimal getCharge() {
+        return charge;
+    }
+
+    public List<ZoneBoundaryCrossing> getEventLog() {
+        return eventLog;
+    }
+
+    public void addToList (ZoneBoundaryCrossing zoneBoundaryCrossing){
+        eventLog.add(zoneBoundaryCrossing);
+    }
 
     private boolean previouslyRegistered(Vehicle vehicle, List<ZoneBoundaryCrossing> eventLog) {
         for (ZoneBoundaryCrossing crossing : eventLog) {
@@ -31,4 +51,6 @@ public class Register {
     public boolean getOrdering(List<ZoneBoundaryCrossing> crossings){
         return checkOrderingOf(crossings);
     }
+
+
 }
