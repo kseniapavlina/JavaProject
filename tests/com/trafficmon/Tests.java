@@ -158,7 +158,8 @@ public class Tests {
         RegisteredCustomerAccountsService.getInstance().accountFor(vehicleTwo).deduct(BigDecimal.valueOf(1000000000));
     }
 
-    @Test public void checkHoursBetweenCalculation() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    @Test 
+    public void checkHoursBetweenCalculation() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         ChargeCalculator chargeCalculator = new ChargeCalculator();
         Method method = chargeCalculator.getClass().getDeclaredMethod("calculateHoursBetween", LocalTime.class, LocalTime.class);
         method.setAccessible(true);
