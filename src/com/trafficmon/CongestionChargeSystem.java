@@ -11,16 +11,15 @@ public class CongestionChargeSystem {
         return vehicleRegistration;
     }
 
-
     public void vehicleEnteringZone(Vehicle vehicle) {
-        if(!vehicleRegistration.containsKey(vehicle)) {
+        if(!isVehicleRegistered(vehicle)) {
             vehicleRegistration.put(vehicle, new Register());
         }
         vehicleRegistration.get(vehicle).addToList(new EntryEvent(vehicle));
     }
 
     public void vehicleLeavingZone(Vehicle vehicle) {
-        if(vehicleRegistration.containsKey(vehicle)) {
+        if(isVehicleRegistered(vehicle)) {
             vehicleRegistration.get(vehicle).addToList(new ExitEvent(vehicle));
         }
     }
@@ -36,6 +35,10 @@ public class CongestionChargeSystem {
         return completeEventLog;
     }
 
+    public boolean isVehicleRegistered(Vehicle vehicle){
+        return vehicleRegistration.containsKey(vehicle);
+    }
+
 
     public void calculateCharges() {
 
@@ -43,7 +46,7 @@ public class CongestionChargeSystem {
             Vehicle vehicle = vehicleCrossings.getKey();
             List<ZoneBoundaryCrossing> crossings = vehicleCrossings.getValue().getEventLog();
 
-            if (!vehicleCrossings.getValue().getOrdering(crossings)) {
+            if (!vehicleCrossings.getValue().getOrdering()) {
                 OperationsTeam.getInstance().triggerInvestigationInto(vehicle);
             } else {
                 BigDecimal charge = new ChargeCalculator().getCharge(crossings);
@@ -56,4 +59,5 @@ public class CongestionChargeSystem {
             }
         }
     }
+
 }

@@ -33,7 +33,6 @@ public class Tests {
     private ControllableClock controllableClock = new ControllableClock();
 
     private CongestionChargeSystem congestionChargeSystem = new CongestionChargeSystem();
-    private Register register = new Register();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -181,23 +180,23 @@ public class Tests {
     public void checkOrderingIsFalse(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(10, 0, 0)));
-        List<ZoneBoundaryCrossing> crossings = new ArrayList<>(congestionChargeSystem.getCompleteEventLog());
-
-        assertEquals(register.getOrdering(crossings), false);
+        assertEquals(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getOrdering(), false);
     }
 
     @Test
     public void checkOrderingIsTrue(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(10, 0, 0)));
-        assertEquals(register.getOrdering(congestionChargeSystem.getCompleteEventLog()), true);
+        assertEquals(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getOrdering(), true);
+
     }
 
     @Test
     public void checkOrderingIsFalseWhenStartWithExit(){
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(12, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(13, 0, 0)));
-        assertEquals(register.getOrdering(congestionChargeSystem.getCompleteEventLog()), false);
+        assertEquals(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getOrdering(), false);
+
     }
 
     @Test
@@ -263,7 +262,8 @@ public class Tests {
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(12, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(14, 30, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(16, 0, 0)));
-        assertFalse(register.getOrdering(congestionChargeSystem.getCompleteEventLog()));
+        assertFalse(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getOrdering());
+
     }
 
     @Test
@@ -272,7 +272,7 @@ public class Tests {
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(12, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(14, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(16, 0, 0)));
-        assertFalse((register.getOrdering(congestionChargeSystem.getCompleteEventLog())));
+        assertFalse(congestionChargeSystem.getVehicleRegistration().get(vehicleOne).getOrdering());
     }
 
     @Test
@@ -287,17 +287,6 @@ public class Tests {
         BigDecimal answer = new BigDecimal("14");
         assertEquals(getVehicleCharge(vehicleOne), answer);
     }
-
-//    @Test
-//    public void checkMultipleEntryLessThatFourHoursBeforeTwo(){
-//        eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
-//        eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(11, 0, 0)));
-//        eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(12, 0, 0)));
-//        eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(13, 0, 0)));
-//        congestionChargeSystem.calculateCharges();
-//        BigDecimal answer = new BigDecimal("6");
-//        assertEquals(getVehicleCharge(vehicleOne), answer);
-//    }
 
     @Test
     public void checkMultipleEntryLessThatFourHoursBeforeTwo(){
@@ -394,9 +383,8 @@ public class Tests {
     public void checksIsRegistered(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(13, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(14, 0, 0)));
-        List<ZoneBoundaryCrossing> e = congestionChargeSystem.getCompleteEventLog();
-        assertTrue(register.isRegistered(vehicleOne, e));
-        assertFalse(register.isRegistered(vehicleTwo, e));
+        assertTrue(congestionChargeSystem.isVehicleRegistered(vehicleOne));
+        assertFalse(congestionChargeSystem.isVehicleRegistered(vehicleTwo));
     }
 
     @Test
