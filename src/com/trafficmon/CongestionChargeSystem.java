@@ -15,12 +15,12 @@ public class CongestionChargeSystem {
         if(!isVehicleRegistered(vehicle)) {
             vehicleRegistration.put(vehicle, new Register());
         }
-        vehicleRegistration.get(vehicle).addToList(new EntryEvent(vehicle));
+        vehicleRegistration.get(vehicle).addEntryToList(vehicle);
     }
 
     public void vehicleLeavingZone(Vehicle vehicle) {
         if(isVehicleRegistered(vehicle)) {
-            vehicleRegistration.get(vehicle).addToList(new ExitEvent(vehicle));
+            vehicleRegistration.get(vehicle).addExitToList(vehicle);
         }
     }
 
@@ -39,9 +39,7 @@ public class CongestionChargeSystem {
         return vehicleRegistration.containsKey(vehicle);
     }
 
-
     public void calculateCharges() {
-
         for (Map.Entry<Vehicle, Register> vehicleCrossings : vehicleRegistration.entrySet()) {
             Vehicle vehicle = vehicleCrossings.getKey();
             List<ZoneBoundaryCrossing> crossings = vehicleCrossings.getValue().getEventLog();

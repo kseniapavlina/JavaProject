@@ -24,6 +24,10 @@ public class Register {
         eventLog.add(zoneBoundaryCrossing);
     }
 
+    public void addEntryToList (Vehicle vehicle){
+        eventLog.add(new EntryEvent(vehicle));
+    }
+
     private boolean checkOrderingOf() {
         ZoneBoundaryCrossing lastEvent = eventLog.get(0);
         if (lastEvent instanceof ExitEvent) return false;
@@ -40,4 +44,7 @@ public class Register {
     }
 
 
+    public void addExitToList(Vehicle vehicle) {
+        eventLog.add(new ExitEvent(vehicle));
+    }
 }
