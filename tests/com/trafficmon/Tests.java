@@ -76,33 +76,38 @@ public class Tests {
         return vehicleCharge.round(new MathContext(2));
     }
 
+    //class VehicleTests
     @Test
-    public void checksGetRegistration(){
+    public void testsGetRegistration(){
         assertEquals(vehicleOne.getRegistration(), "A123 XYZ");
         assertNotEquals(vehicleTwo.getRegistration(), "A123 XYZ");
     }
 
+    //VehicleTests
     @Test
-    public void checkVehicleToSting(){
+    public void testsVehicleToSting(){
         assertEquals(vehicleOne.toString(), "Vehicle [A123 XYZ]");
     }
 
+    //VehicleTests
     @Test
-    public void checkVehicleEquals(){
+    public void testsVehicleEquals(){
         assertThat(vehicleOne.equals(vehicleOneCopy), is(true));
         assertThat(vehicleOne.equals(vehicleThree), is(false));
     }
 
+    //VehicleTests
     @Test
-    public void assertVehicleHashCode(){
+    public void testsVehicleHashCode(){
         assertEquals(vehicleOne.hashCode(), vehicleOneCopy.hashCode());
         assertNotEquals(vehicleOne.hashCode(), vehicleThree.hashCode());
         assertNotEquals(vehicleOne.hashCode(), 0);
         assertEquals(Vehicle.withRegistration(null).hashCode(), 0);
     }
 
+    //ZoneBoundaryCrossingTests
     @Test
-    public void assertExitTimeStamp(){
+    public void testsExitTimeStamp(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(10, 0, 0)));
         ZoneBoundaryCrossing crossingByOne = congestionChargeSystem.getCompleteEventLog().get(0);
@@ -110,8 +115,9 @@ public class Tests {
         assertThat(crossingByTwo.timestamp(), greaterThan(crossingByOne.timestamp()));
     }
 
+    //ZoneBoundaryCrossingTests
     @Test
-    public void assertEnteringTime(){
+    public void testsEnteringTime(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(10, 0, 0)));
         LocalTime timestamp = congestionChargeSystem.getCompleteEventLog().get(0).timestamp();
@@ -121,8 +127,9 @@ public class Tests {
 
     }
 
+    //?
     @Test
-    public void isLeavingRegisteredInEventLog(){
+    public void testsLeavingRegisteredInEventLog(){
         congestionChargeSystem.vehicleLeavingZone(vehicleOne);
         assertThat(congestionChargeSystem.getCompleteEventLog().size(), is(0));
         congestionChargeSystem.vehicleEnteringZone(vehicleOne);
@@ -130,8 +137,9 @@ public class Tests {
         assertThat(congestionChargeSystem.getCompleteEventLog().size(), is(2));
     }
 
+    //?
     @Test
-    public void testEventLogZeroValue(){
+    public void testsEventLogZeroValue(){
         congestionChargeSystem.vehicleLeavingZone(vehicleTwo);
         congestionChargeSystem.vehicleEnteringZone(vehicleOne);
         congestionChargeSystem.vehicleLeavingZone(vehicleOne);
@@ -139,13 +147,16 @@ public class Tests {
         assertThat(z.getVehicle(), is(vehicleOne));
     }
 
+    //CongestionChargeSystemTests
     @Test
-    public void checksUnregisteredVehicleException() throws AccountNotRegisteredException, InsufficientCreditException{
+    public void testsUnregisteredVehicleException() throws AccountNotRegisteredException, InsufficientCreditException{
         thrown.expect(AccountNotRegisteredException.class);
         RegisteredCustomerAccountsService.getInstance().accountFor(vehicleTwo).deduct(BigDecimal.valueOf(1000000000));
     }
 
-    @Test public void checkHoursBetweenCalculation() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    //ChargeCalculatorTests
+    @Test
+    public void testsHoursBetweenCalculation() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         ChargeCalculator chargeCalculator = new ChargeCalculator();
         Method method = chargeCalculator.getClass().getDeclaredMethod("calculateHoursBetween", LocalTime.class, LocalTime.class);
         method.setAccessible(true);
@@ -157,35 +168,40 @@ public class Tests {
         );
     }
 
+    //CongestionChargeSystemTests
     @Test
-    public void InsufficientCreditException() throws AccountNotRegisteredException, InsufficientCreditException {
+    public void testsInsufficientCreditException() throws AccountNotRegisteredException, InsufficientCreditException {
         thrown.expect(InsufficientCreditException.class);
         RegisteredCustomerAccountsService.getInstance().accountFor(vehicleOne).deduct(BigDecimal.valueOf(1000000000));
     }
 
+    //RegisterTests
     @Test
-    public void checkOrderingIsFalse(){
+    public void testsOrderingIsFalse(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(10, 0, 0)));
-        TestCase.assertFalse(getOrdering(vehicleOne));
+        assertFalse(getOrdering(vehicleOne));
     }
 
+    //RegisterTests
     @Test
-    public void checkOrderingIsTrue(){
+    public void testsOrderingIsTrue(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(10, 0, 0)));
         TestCase.assertTrue(getOrdering(vehicleOne));
 
     }
 
+    //RegisterTests
     @Test
-    public void checkOrderingIsFalseWhenStartWithExit(){
+    public void testsOrderingIsFalseWhenStartWithExit(){
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(12, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(13, 0, 0)));
         TestCase.assertFalse(getOrdering(vehicleOne));
 
     }
 
+    //ChargeCalculatorTests
     @Test
     public void calculatesChargeForEntryBeforeTwoLessThanFourHours() {
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
@@ -195,6 +211,7 @@ public class Tests {
         assertEquals(getVehicleCharge(vehicleOne), answer);
     }
 
+    //ChargeCalculatorTests
     @Test
     public void calculatesChargeForLongerThanFourHours(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
@@ -215,7 +232,7 @@ public class Tests {
     }
 
     @Test
-    public void checksTimer() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void testsTimer() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(11, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(12, 0, 0)));
@@ -242,8 +259,9 @@ public class Tests {
         assertEquals(getVehicleCharge(vehicleOne), answer);
     }
 
+    //RegisterTests
     @Test
-    public void checkOrderingLastIsEntry(){
+    public void testsOrderingLastIsEntry(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(11, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(12, 0, 0)));
@@ -253,8 +271,9 @@ public class Tests {
 
     }
 
+    //RegisterTests
     @Test
-    public void checkOrderingFirstIsExit(){
+    public void testsOrderingFirstIsExit(){
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(11, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(12, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(14, 0, 0)));
@@ -262,8 +281,9 @@ public class Tests {
         assertFalse(getOrdering(vehicleOne));
     }
 
+    //ChargeCalculatorTests
     @Test
-    public void checkMultipleEntryEqualTo14(){
+    public void calculatesMultipleEntryLessThanFourHours(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(11, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(16, 0, 0)));
@@ -276,7 +296,7 @@ public class Tests {
     }
 
     @Test
-    public void checkMultipleEntryLessThatFourHoursBeforeTwo(){
+    public void calculatesMultipleEntryLessThatFourHoursBeforeTwo(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(11, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(12, 0, 0)));
@@ -287,7 +307,7 @@ public class Tests {
     }
 
     @Test
-    public void checkMultipleEntryLessThatFourHoursAfterTwo(){
+    public void calculatesMultipleEntryLessThatFourHoursAfterTwo(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(15, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(16, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(18, 0, 0)));
@@ -298,7 +318,7 @@ public class Tests {
     }
 
     @Test
-    public void checkMultipleEntryMoreThatFourHours(){
+    public void calculatesMultipleEntryMoreThatFourHours(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(9, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(11, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(15, 0, 0)));
@@ -311,7 +331,7 @@ public class Tests {
     }
 
     @Test
-    public void checkMultipleEntryAfterFourWithMoreThanFourBetween(){
+    public void calculatesMultipleEntryAfterFourWithMoreThanFourBetween(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(15, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(16, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(23, 0, 0)));
@@ -322,7 +342,7 @@ public class Tests {
     }
 
     @Test
-    public void checkMultipleEntryBeforeAndAfterTwo(){
+    public void calculatesMultipleEntryBeforeAndAfterTwo(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(13, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(14, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(15, 0, 0)));
@@ -333,7 +353,7 @@ public class Tests {
     }
 
     @Test
-    public void checkEntryTwoCars(){
+    public void calculatesEntryTwoCars(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(12, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleTwo, getControllableClock(13, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(14, 0, 0)));
@@ -347,7 +367,7 @@ public class Tests {
     }
 
     @Test
-    public void checkEntryTwoCarsMultipleEntry(){
+    public void calculatesTwoCarsMultipleEntry(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(13, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(14, 0, 0)));
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(15, 0, 0)));
@@ -366,14 +386,16 @@ public class Tests {
         assertEquals(getVehicleCharge(vehicleTwo), answer2);
     }
 
+    //CongestionChargeSystemTests?
     @Test
-    public void checksIsRegistered(){
+    public void testsIsRegistered(){
         eventLogEntry(new EntryEvent(vehicleOne, getControllableClock(13, 0, 0)));
         eventLogEntry(new ExitEvent(vehicleOne, getControllableClock(14, 0, 0)));
         assertTrue(congestionChargeSystem.isVehicleRegistered(vehicleOne));
         assertFalse(congestionChargeSystem.isVehicleRegistered(vehicleTwo));
     }
 
+    //ClockTests
     @Test
     public void checkClock() {
         context.checking(new Expectations() {{
@@ -383,6 +405,7 @@ public class Tests {
 
     }
 
+    //ClockTests
     @Test
     public void checkClockNotUsed() {
         context.checking(new Expectations() {{

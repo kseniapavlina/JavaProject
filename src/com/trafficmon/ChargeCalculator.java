@@ -62,7 +62,6 @@ public class ChargeCalculator {
         return timer;
     }
 
-    //Quick Maffs 2 + 2 is 4 - 3 yo
     private double calculateHoursBetween(LocalTime startTimeMs, LocalTime endTimeMs) {
         return Math.ceil(ChronoUnit.MINUTES.between(startTimeMs, endTimeMs)) / 60.0;
     }
