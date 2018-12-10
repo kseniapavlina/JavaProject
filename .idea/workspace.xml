@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f12daa0-1e33-4e91-b8c3-98188ac0a033" name="Default" comment="interface chargeable">
-      <change afterPath="$PROJECT_DIR$/src/com/trafficmon/LibraryChecker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/com/trafficmon/LibraryCheckerTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaSS/com/trafficmon/CongestionChargeSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaSS/com/trafficmon/CongestionChargeSystem.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/trafficmon/Example.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/com/trafficmon/ClockTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/com/trafficmon/ClockTests.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,11 +13,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/JavaSS$All_in_JavaSS.ic" NAME="All in JavaSS Coverage Results" MODIFIED="1544464938310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/JavaSS$All_in_JavaSS.ic" NAME="All in JavaSS Coverage Results" MODIFIED="1544466098438" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/JavaSS$Tests_checkEntryTwoCarsMultipleEntry.coverage" NAME="Tests.checkEntryTwoCarsMultipleEntry Coverage Results" MODIFIED="1544113405368" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.trafficmon.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/JavaSS$com_trafficmon_in_JavaSS.ic" NAME="com.trafficmon in JavaSS Coverage Results" MODIFIED="1544465598446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/JavaSS$com_trafficmon_in_JavaSS.ic" NAME="com.trafficmon in JavaSS Coverage Results" MODIFIED="1544466127228" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.trafficmon.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/JavaSS$Tests.coverage" NAME="Tests Coverage Results" MODIFIED="1544317260314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
@@ -56,26 +51,26 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="4" />
-          <entry key="java" value="78" />
-          <entry key="trafficmon" value="1" />
+          <entry key="java" value="79" />
+          <entry key="trafficmon" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="4" />
-          <entry key="JAVA" value="78" />
-          <entry key="UML" value="1" />
+          <entry key="JAVA" value="79" />
+          <entry key="UML" value="2" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
+            <state relative-caret-position="180">
+              <caret line="12" column="44" lean-forward="true" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,8 +81,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/trafficmon/Trigger.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="5" lean-forward="true" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+            <state relative-caret-position="240">
+              <caret line="16" column="6" lean-forward="true" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
               <folding>
                 <element signature="e#163#164#0" expanded="true" />
                 <element signature="e#215#216#0" expanded="true" />
@@ -97,6 +92,18 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/trafficmon/Chargeable.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="11" lean-forward="true" selection-start-line="6" selection-end-line="7" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/com/trafficmon/LibraryCheckerTests.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="137">
@@ -308,7 +315,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544465904556" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544466436657" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -452,8 +459,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.com.trafficmon in JavaSS" />
-        <item itemvalue="JUnit.LibraryCheckerTests.tests" />
         <item itemvalue="JUnit.All in JavaSS" />
+        <item itemvalue="JUnit.LibraryCheckerTests.tests" />
         <item itemvalue="JUnit.LibraryCheckerTests.testsLibraryTrigger" />
         <item itemvalue="JUnit.LibraryCheckerTests.goskh" />
       </list>
@@ -471,7 +478,7 @@
       <updated>1544092828635</updated>
       <workItem from="1544092829903" duration="25847000" />
       <workItem from="1544318282759" duration="9559000" />
-      <workItem from="1544387088768" duration="18548000" />
+      <workItem from="1544387088768" duration="18786000" />
     </task>
     <task id="LOCAL-00001" summary="add compareTime">
       <created>1544093013724</created>
@@ -676,16 +683,17 @@
       <option name="project" value="LOCAL" />
       <updated>1544456898034</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="interface chargeable">
+      <created>1544466076726</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1544466076726</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="All_in_JavaSS - 2018.12.10 at 17h 58m 01s.xml">
-      <configuration name="All in JavaSS" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="LibraryCheckerTests_testsLibraryTrigger - 2018.12.10 at 17h 59m 22s.xml">
-      <configuration name="LibraryCheckerTests.testsLibraryTrigger" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="All_in_JavaSS - 2018.12.10 at 17h 59m 31s.xml">
       <configuration name="All in JavaSS" configurationId="JUnit" />
     </history-entry>
@@ -710,31 +718,36 @@
     <history-entry file="com_trafficmon_in_JavaSS - 2018.12.10 at 18h 13m 21s.xml">
       <configuration name="com.trafficmon in JavaSS" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="All_in_JavaSS - 2018.12.10 at 18h 21m 42s.xml">
+      <configuration name="All in JavaSS" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="com_trafficmon_in_JavaSS - 2018.12.10 at 18h 22m 10s.xml">
+      <configuration name="com.trafficmon in JavaSS" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53954000" />
+    <option name="totallyTimeSpent" value="54192000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Capture Tool" order="0" />
       <window_info id="Designer" order="1" />
       <window_info id="UI Designer" order="2" />
       <window_info id="simpleUML" order="3" weight="0.3298611" />
       <window_info id="Favorites" order="4" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.24105866" />
+      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.24105866" />
       <window_info id="Structure" order="6" weight="0.25" />
       <window_info id="Image Layers" order="7" />
       <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection Results" order="1" weight="0.32891566" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" weight="0.32941177" />
-      <window_info active="true" anchor="bottom" id="Messages" order="3" visible="true" weight="0.32891566" />
+      <window_info anchor="bottom" id="Messages" order="3" weight="0.32891566" />
       <window_info anchor="bottom" id="Version Control" order="4" />
       <window_info anchor="bottom" id="Terminal" order="5" />
       <window_info anchor="bottom" id="Message" order="6" />
       <window_info anchor="bottom" id="Find" order="7" weight="0.32941177" />
-      <window_info anchor="bottom" id="Run" order="8" weight="0.32891566" />
+      <window_info anchor="bottom" id="Run" order="8" visible="true" weight="0.32891566" />
       <window_info anchor="bottom" id="Debug" order="9" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
@@ -888,36 +901,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="uml://JAVA/com.trafficmon">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>JAVA</ID>
-          <OriginalElement>com.trafficmon</OriginalElement>
-          <nodes>
-            <node x="" y="">com.trafficmon.EntryEvent</node>
-            <node x="" y="">com.trafficmon.Register</node>
-            <node x="" y="">com.trafficmon.Clock</node>
-            <node x="" y="">com.trafficmon.Chargeable</node>
-            <node x="" y="">com.trafficmon.Trigger</node>
-            <node x="" y="">com.trafficmon.SystemClock</node>
-            <node x="" y="">com.trafficmon.Example</node>
-            <node x="" y="">com.trafficmon.Vehicle</node>
-            <node x="" y="">com.trafficmon.ZoneBoundaryCrossing</node>
-            <node x="" y="">com.trafficmon.CongestionChargeSystem</node>
-            <node x="" y="">com.trafficmon.ChargeCalculator</node>
-            <node x="" y="">com.trafficmon.ExitEvent</node>
-            <node x="" y="">com.trafficmon.LibraryChecker</node>
-          </nodes>
-          <notes />
-          <edges />
-          <settings layout="Hierarchic Group" zoom="0.7551601423487544" x="682.5" y="367.69038642789826" />
-          <SelectedNodes />
-          <Categories />
-          <SCOPE>Production</SCOPE>
-          <VISIBILITY>private</VISIBILITY>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/trafficmon-externals.jar!/com/trafficmon/OperationsTeam.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -1034,16 +1017,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trafficmon/Chargeable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/trafficmon/Clock.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -1067,10 +1040,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="44" lean-forward="true" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/trafficmon/Trigger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="5" lean-forward="true" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+        <state relative-caret-position="240">
+          <caret line="16" column="6" lean-forward="true" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
           <folding>
             <element signature="e#163#164#0" expanded="true" />
             <element signature="e#215#216#0" expanded="true" />
@@ -1078,20 +1061,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/com/trafficmon/LibraryCheckerTests.java">
+    <entry file="file://$PROJECT_DIR$/src/com/trafficmon/Chargeable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="33" column="9" lean-forward="true" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+        <state relative-caret-position="90">
+          <caret line="6" column="11" lean-forward="true" selection-start-line="6" selection-end-line="7" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java">
+    <entry file="uml://JAVA/com.trafficmon">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>com.trafficmon</OriginalElement>
+          <nodes>
+            <node x="" y="">com.trafficmon.EntryEvent</node>
+            <node x="" y="">com.trafficmon.Register</node>
+            <node x="" y="">com.trafficmon.Clock</node>
+            <node x="" y="">com.trafficmon.Chargeable</node>
+            <node x="" y="">com.trafficmon.Trigger</node>
+            <node x="" y="">com.trafficmon.SystemClock</node>
+            <node x="" y="">com.trafficmon.Vehicle</node>
+            <node x="" y="">com.trafficmon.ZoneBoundaryCrossing</node>
+            <node x="" y="">com.trafficmon.CongestionChargeSystem</node>
+            <node x="" y="">com.trafficmon.ChargeCalculator</node>
+            <node x="" y="">com.trafficmon.ExitEvent</node>
+            <node x="" y="">com.trafficmon.LibraryChecker</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="0.8302133516861665" x="618.9923733731245" y="244.34319820940067" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>Production</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/com/trafficmon/LibraryCheckerTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
+        <state relative-caret-position="137">
+          <caret line="33" column="9" lean-forward="true" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
