@@ -5,8 +5,8 @@ import java.util.*;
 
 public class CongestionChargeSystem {
 
-    private Map<Vehicle, Register> vehicleRegistration = new HashMap<>();
-    private Chargeable chargeable = new ChargeCalculator();
+    private final Map<Vehicle, Register> vehicleRegistration = new HashMap<>();
+    private final Chargeable chargeable = new ChargeCalculator();
 
     public Map<Vehicle, Register> getVehicleRegistration() {
         return vehicleRegistration;
