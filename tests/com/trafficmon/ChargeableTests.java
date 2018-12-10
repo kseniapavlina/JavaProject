@@ -6,8 +6,6 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-
 
 public class ChargeableTests extends TestHelper {
     @Rule

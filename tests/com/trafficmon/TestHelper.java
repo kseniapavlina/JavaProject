@@ -1,8 +1,5 @@
 package com.trafficmon;
 
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.time.LocalTime;
