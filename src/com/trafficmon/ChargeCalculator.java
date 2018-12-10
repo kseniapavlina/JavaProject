@@ -6,22 +6,16 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChargeCalculator {
+public class ChargeCalculator implements Chargeable {
 
     private static final LocalTime TIME_BOUNDARY = LocalTime.of(14,0,0);
     private static final BigDecimal LOWER_FEE = new BigDecimal(4);
     private static final BigDecimal UPPER_FEE = new BigDecimal(6);
     private static final BigDecimal LONG_FEE = new BigDecimal(12);
     private static final int HOURS_IN_ZONE = 4;
-    private BigDecimal charge = new BigDecimal(0);
 
-
-    public BigDecimal getCharge(List<ZoneBoundaryCrossing> crossings) {
-        calculateChargeForTimeInZone(crossings);
-        return charge;
-    }
-
-    private void calculateChargeForTimeInZone(List<ZoneBoundaryCrossing> crossings) {
+    public BigDecimal calculateChargeForTimeInZone(List<ZoneBoundaryCrossing> crossings) {
+        BigDecimal charge;
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
         ArrayList<LocalTime> timesToCharge = new ArrayList<>();
         LocalTime criticalTime = crossings.get(1).timestamp();
@@ -30,6 +24,8 @@ public class ChargeCalculator {
         charge = timer(crossings) < HOURS_IN_ZONE ?
                 calculateShortCharge(crossings, timesToCharge, criticalTime)
                 : LONG_FEE;
+
+        return charge;
     }
 
     private BigDecimal calculateShortCharge(List<ZoneBoundaryCrossing> crossings, ArrayList<LocalTime> timesToCharge, LocalTime criticalTime) {

@@ -397,7 +397,7 @@ public class Tests {
 
     //ClockTests
     @Test
-    public void checkClock() {
+    public void testsClock() {
         context.checking(new Expectations() {{
             exactly(1).of(clock).now();
         }});
@@ -407,7 +407,7 @@ public class Tests {
 
     //ClockTests
     @Test
-    public void checkClockNotUsed() {
+    public void testsClockNotUsed() {
         context.checking(new Expectations() {{
             exactly(0).of(clock).now();
         }});

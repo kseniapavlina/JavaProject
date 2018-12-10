@@ -6,6 +6,7 @@ import java.util.*;
 public class CongestionChargeSystem {
 
     private Map<Vehicle, Register> vehicleRegistration = new HashMap<>();
+    private Chargeable chargeable = new ChargeCalculator();
 
     public Map<Vehicle, Register> getVehicleRegistration() {
         return vehicleRegistration;
@@ -47,7 +48,7 @@ public class CongestionChargeSystem {
             if (!vehicleCrossings.getValue().getOrdering()) {
                 OperationsTeam.getInstance().triggerInvestigationInto(vehicle);
             } else {
-                BigDecimal charge = new ChargeCalculator().getCharge(crossings);
+                BigDecimal charge = chargeable.calculateChargeForTimeInZone(crossings);
                 vehicleRegistration.get(vehicle).setCharge(charge);
                 try {
                     RegisteredCustomerAccountsService.getInstance().accountFor(vehicle).deduct(charge);
